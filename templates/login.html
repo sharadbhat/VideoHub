@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>Video Database Management System</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+  <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900'>
+  <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Montserrat:400,700'>
+  <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'>
+  <link rel="stylesheet" href="static/css/style.css?version=1">
+  <link rel="stylesheet" href="static/css/alert.css?version=1">
+</head>
+
+<body>
+    <div class="container">
+      <div class="info">
+        <h1 style="color:#16A085;">Video Database Management System</h1>
+      </div>
+    </div>
+    <div class="form">
+      <form class="login-form" action="login" method="post">
+        {% if loginError %}
+          <div class="alert">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            {{ loginError }}
+          </div>
+        {% endif %}
+        <input type="text" name="username" placeholder="username" required autofocus/>
+        <input type="password" name="password" placeholder="password" required/>
+        <button>login</button>
+        <p class="message">Not registered? <a href="{{ url_for('signup_form') }}">Create an account</a></p>
+      </form>
+    </div>
+</body>
+</html>

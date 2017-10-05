@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Video Database Management System</title>
+  </head>
+  <body>
+    <h1>Hello, {{ logged_in_username }}</h1>
+    <a href="{{ url_for('upload_form') }}">Upload video</a>
+    <a href="{{ url_for('delete_own_account') }}">Delete account</a>
+    <a href="{{ url_for('logout') }}">Logout</a>
+  </body>
+</html>
