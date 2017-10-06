@@ -1,13 +1,25 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>Video Database Management System</title>
-  </head>
-  <body>
-    <h1>Hello administrator, {{ logged_in_username }}</h1>
-    <a href="{{ url_for('upload_form') }}">Upload video</a>
-    <a href="{{ url_for('delete_own_account') }}">Delete account</a>
-    <a href="{{ url_for('logout') }}">Logout</a>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <title>VideoHub</title>
+  <link rel='stylesheet prefetch' href='http://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css'>
+  <link rel="stylesheet" href="static/css/dashboard.css">
+</head>
+
+<body>
+    <br><br>
+    <h1 align="center">Administrator Dashboard</h1>
+    <div class="wrapper">
+    <div style="text-align:center">
+      <a href="{{ url_for('dashboard') }}" class="buttonDash">Remove user</a>
+      <br><br>
+      <a href="{{ url_for('dashboard') }}" class="buttonDash">View flagged videos</a>
+      <br><br>
+      <a href="{{ url_for('dashboard') }}" class="buttonDash">Delete video</a>
+      <br><br>
+      <a href="{{ url_for('logout_user') }}" class="buttonDash">Logout</a>
+    </div>
+  </div>
+</body>
 </html>

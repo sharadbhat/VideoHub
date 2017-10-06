@@ -2,7 +2,7 @@
 <html >
 <head>
   <meta charset="UTF-8">
-  <title>Video Database Management System</title>
+  <title>VideoHub</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
   <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900'>
   <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Montserrat:400,700'>
@@ -14,7 +14,7 @@
 <body>
     <div class="container">
       <div class="info">
-        <h1 style="color:#16A085;">Video Database Management System</h1>
+        <h1 style="color:#16A085;">VideoHub</h1>
       </div>
     </div>
     <div class="form">
@@ -22,7 +22,7 @@
         {% if loginError %}
           <div class="alert">
             <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-            {{ loginError }}
+            Invalid credentials
           </div>
         {% endif %}
         <input type="text" name="username" placeholder="username" required autofocus/>

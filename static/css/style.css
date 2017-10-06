@@ -43,6 +43,7 @@
   font-size: 14px;
 }
 .form button {
+  margin-bottom: 10px;
   outline: 0;
   background: #0D5B4C;
   width: 100%;

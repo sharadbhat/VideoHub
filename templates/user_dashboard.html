@@ -2,12 +2,17 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Video Database Management System</title>
+    <title>VideoHub</title>
   </head>
   <body>
     <h1>Hello, {{ logged_in_username }}</h1>
+    <br>
     <a href="{{ url_for('upload_form') }}">Upload video</a>
+    <br>
+    <a href="{{ url_for('password_update_form') }}">Change password</a>
+    <br>
     <a href="{{ url_for('delete_own_account') }}">Delete account</a>
-    <a href="{{ url_for('logout') }}">Logout</a>
+    <br>
+    <a href="{{ url_for('logout_user') }}">Logout</a>
   </body>
 </html>

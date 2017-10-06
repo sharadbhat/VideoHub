@@ -9,7 +9,7 @@ form{
   margin-left: -250px;
   width: 500px;
   height: 200px;
-  border: 4px dashed #16A085;
+  border: 4px dashed #fff;
 }
 form p{
   width: 100%;
@@ -19,7 +19,7 @@ form p{
   color: #ffffff;
   font-family: Arial;
 }
-form input{
+form input[type=file]{
   position: absolute;
   margin: 0;
   padding: 0;
@@ -27,6 +27,26 @@ form input{
   height: 100%;
   outline: none;
   opacity: 0;
+}
+input[type=text]{
+  text-align: center;
+}
+form input[type=text]{
+  outline: 0;
+  background: #16A085;
+  width: 94%;
+  border: 0;
+  padding: 15px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  margin-bottom: 10px;
+  color: #FFFFFF;
+  font-size: 14px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
 }
 form button{
   outline: 0;
@@ -39,15 +59,37 @@ form button{
   border-bottom-left-radius: 3px;
   border-bottom-right-radius: 3px;
   color: #FFFFFF;
-  font-size: 14px;
+  font-size: 20px;
   -webkit-transition: all 0.3 ease;
   transition: all 0.3 ease;
   cursor: pointer;
 }
 form button:hover{
-  background: #149174;
-	color: #0C5645;
+  background: #0D5B4C;
 }
 form button:active{
   border:0;
+}
+*::-webkit-input-placeholder {
+    color: white;
+    font-size: 18px;
+    text-align: center;
+}
+*:-moz-placeholder {
+    /* FF 4-18 */
+    color: white;
+    font-size: 18px;
+    text-align: center;
+}
+*::-moz-placeholder {
+    /* FF 19+ */
+    color: white;
+    font-size: 18px;
+    text-align: center;
+}
+*:-ms-input-placeholder {
+    /* IE 10+ */
+    color: white;
+    font-size: 18px;
+    text-align: center;
 }

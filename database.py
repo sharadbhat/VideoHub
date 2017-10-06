@@ -1,11 +1,12 @@
 import pymysql
 import uuid
+import base64
 from werkzeug.security import generate_password_hash, check_password_hash
 
 
 class Database:
     def __init__(self): # WORKS
-        self.db = pymysql.connect(host="localhost", user="root", passwd="*******", db="video")
+        self.db = pymysql.connect(host="localhost", user="root", passwd="******", db="video")
         self.cur = self.db.cursor()
 
     def is_valid_user(self, username, password): # WORKS
@@ -20,13 +21,11 @@ class Database:
             if done == 1:
                 self.cur.execute("SELECT password FROM users WHERE username=\"{}\"".format(username))
                 stored_password = self.cur.fetchone()[0]
-                is_valid = check_password_hash(stored_password, password)
-                return is_valid
+                return check_password_hash(stored_password, password)
             else:
                 self.cur.execute("SELECT password FROM admins WHERE username=\"{}\"".format(username))
                 stored_password = self.cur.fetchone()[0]
-                is_valid = check_password_hash(stored_password, password)
-                return is_valid
+                return check_password_hash(stored_password, password)
 
     def is_valid_username(self, username):
         """
@@ -39,7 +38,7 @@ class Database:
         else:
             return True
 
-    def is_admin(self, username):
+    def is_admin(self, username): #WORKS
         """
         - Checks if a user is an admin.
         """
@@ -49,7 +48,7 @@ class Database:
         else:
             return True
 
-    def add_user(self, username, password):
+    def add_user(self, username, password): #WORKS
         """
         - Add the new user credentials to the USERS table.
         """
@@ -60,7 +59,18 @@ class Database:
         except:
             self.db.rollback()
 
-    def delete_user(self, username):
+    def update_password(self, username, password): #WORKS
+        """
+        - Updates the password of the user in the USERS table.
+        """
+        password_hash = generate_password_hash(password)
+        try:
+            self.cur.execute("UPDATE users SET password = \"{}\" WHERE username = \"{}\"".format(password_hash, username))
+            self.db.commit()
+        except:
+            self.db.rollback()
+
+    def delete_user(self, username): #WORKS
         """
         - Deletes user credentials from the USERS table.
         """
@@ -69,3 +79,8 @@ class Database:
             self.db.commit()
         except:
             self.db.rollback()
+
+    def upload_video(self, video_ID, username, title):
+        """
+        - Updates VIDEOS table with video ID, uploader username and video title.
+        """

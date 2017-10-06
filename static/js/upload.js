@@ -1,5 +1,9 @@
 $(document).ready(function(){
   $('form input').change(function () {
-    $('form p').text(this.files.length + " file(s) selected");
+    var fullPath = this.value;
+    var filename = fullPath.match(/^.*?([^\\/.]*)[^\\/]*$/)[1];
+    $('form p').text(filename + " selected");
+    var f2 = filename;
+    document.getElementById("title").value = f2;
   });
 });
