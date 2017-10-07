@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for, session, request, send_from_directory
+from flask import Flask, render_template, redirect, url_for, session, request
 from werkzeug import secure_filename
 import os
 from fuzzy_search import fuzzy
@@ -18,7 +18,7 @@ db = database.Database()
 
 
 
-@app.route("/")
+@app.route("/", methods = ['GET'])
 def start(): #WORKS
     """
     - The starting page.
@@ -100,6 +100,9 @@ def signup_form(): #WORKS
 @app.route("/change-password", methods = ['GET', 'POST'])
 def password_update_form(): #WORKS
     """
+    In GET request
+        - Redirects to login page if not logged in.
+        - Displays the password update form.
     """
     if request.method == 'GET':
         u_error = request.args.get('u_error', False)
@@ -110,6 +113,11 @@ def password_update_form(): #WORKS
         else:
             return render_template('password_update.html', update_error = True)
     """
+    In POST request
+        - Gets the old and new passwords.
+        - Checks the old password.
+        - If it matches the stored password, password is updated.
+        - Otherwise, error is thrown.
     """
     if request.method == 'POST':
         if 'user' not in session:
@@ -157,7 +165,7 @@ def delete_own_account(): #WORKS
 
 
 
-@app.route("/logout")
+@app.route("/logout", methods = ['GET'])
 def logout_user(): #WORKS
     """
     - Removes user from session.
@@ -246,25 +254,55 @@ def watch_video(): #WORKS
 
 
 
-@app.route("/search")
+@app.route("/search", methods = ['POST'])
 def search_videos():
+    """
+    In POST request
+        - Accepts the search key from the user.
+    """
+    if request.method == 'POST':
+        search_key = request.form['search']
+        return redirect(url_for('results', search_query = search_key))
+
+
+
+@app.route("/results", methods = ['GET'])
+def results():
     """
     In GET request
         - Displays the search results.
     """
     if request.method == 'GET':
-        search_key = request.args.get('search', None)
+        search_key = request.args.get('search_query', None)
         if search_key == None:
             return redirect('dashboard')
         results = fuzzy(search_key)
-        return render_template('search.html', results = results)
+        result_dict = {}
+        for ID in results:
+            result_dict.update({ID : db.get_video_title(ID)})
+        return render_template('search.html', results = result_dict, search = search_key)
+
+
+
+@app.route("/random", methods = ['GET'])
+def random_video():
+    """
+    In GET request
+        - Selects a random video from the database and redirects to the page of the video.
+    """
+    if request.method == 'GET':
+        random_video_ID = db.get_random_ID()
+        return redirect(url_for('watch_video', v = random_video_ID))
 
 
 
 @app.route("/list") #TEMPORARY
 def list():
     a = os.listdir('static/videos')
-    return render_template('list.html', lista = a)
+    result_dict = {}
+    for ID in a:
+        result_dict.update({ID : db.get_video_title(ID[:-4])})
+    return render_template('list.html', lista = result_dict)
 
 
 if __name__ == "__main__":

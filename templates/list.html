@@ -6,7 +6,11 @@
   </head>
   <body>
     {% for i in lista %}
-      <a href="{{ url_for('watch_video', v = i[:-4]) }}">{{ i }}</a>
+      <a href="{{ url_for('watch_video', v = i[:-4]) }}">{{ lista[i] }}</a><br>
     {% endfor %}
+    <form action="/search" method="post">
+      Search<input type="text" name="search"><br>
+      <input type="submit" value="Submit">
+    </form>
   </body>
 </html>
