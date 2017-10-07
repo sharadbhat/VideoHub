@@ -1,6 +1,7 @@
-from flask import Flask, render_template, redirect, url_for, session, request
+from flask import Flask, render_template, redirect, url_for, session, request, send_from_directory
 from werkzeug import secure_filename
 import os
+from fuzzy_search import fuzzy
 import base64
 import uuid
 import database
@@ -53,6 +54,8 @@ def login_form(): #WORKS
         - Validates user credentials.
     """
     if request.method == 'POST':
+        if 'user' in session:
+            return redirect(url_for('dashboard'))
         username = (request.form['username']).lower().strip()
         password = (request.form['password'])
         if db.is_valid_user(username, password) == True:
@@ -109,6 +112,8 @@ def password_update_form(): #WORKS
     """
     """
     if request.method == 'POST':
+        if 'user' not in session:
+            return redirect(url_for('login_form'))
         username = session['user']
         old_password = request.form['oldPassword']
         new_password = request.form['newPassword']
@@ -139,6 +144,8 @@ def delete_own_account(): #WORKS
         - Redirects to login page.
     """
     if request.method == 'POST':
+        if 'user' not in session:
+            return redirect(url_for('login_form'))
         username = session['user']
         password = request.form['password']
         if db.is_valid_user(username, password) == True:
@@ -201,11 +208,14 @@ def upload_form(): #WORKS
         - Accepts video from user.
     """
     if request.method == 'POST':
+        if 'user' not in session:
+            return redirect(url_for('login_form'))
         file = request.files['file']
         username = session['user']
         title = request.form['title']
         video_ID = str(base64.b64encode(str.encode(str(uuid.uuid4().fields[5]))))[2:-1]
         if file and allowed_file(file.filename):
+            db.upload_video(video_ID, username, title)
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], video_ID + ".mp4"))
             return redirect(url_for('watch_video', v = video_ID))
@@ -222,17 +232,39 @@ def watch_video(): #WORKS
     """
     if request.method == 'GET':
         video_ID = request.args.get('v', None)
-        title = "Dafty" #db.get_video_title(video_ID)
-        uploader = "abcd" #db.get_video_uploader(video_ID)
+        title = db.get_video_title(video_ID)
+        uploader = db.get_video_uploader(video_ID)
         if video_ID == None:
             return redirect(url_for('dashboard'))
+        db.update_view_count(video_ID)
         if 'user' in session:
+            username = session['user']
+            db.update_watched(username, video_ID)
             return render_template('video.html', video_ID = video_ID, title = title, uploader = uploader, username = session['user'])
         else:
             return render_template('video.html', video_ID = video_ID, title = title, uploader = uploader)
 
 
 
+@app.route("/search")
+def search_videos():
+    """
+    In GET request
+        - Displays the search results.
+    """
+    if request.method == 'GET':
+        search_key = request.args.get('search', None)
+        if search_key == None:
+            return redirect('dashboard')
+        results = fuzzy(search_key)
+        return render_template('search.html', results = results)
+
+
+
+@app.route("/list") #TEMPORARY
+def list():
+    a = os.listdir('static/videos')
+    return render_template('list.html', lista = a)
 
 
 if __name__ == "__main__":

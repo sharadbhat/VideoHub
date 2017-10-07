@@ -2,8 +2,9 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>VideoHub - {{ title }}</title>
+    <title>{{ title }}</title>
     <link rel="stylesheet" href="static/css/video.css?version=1">
+    <link rel="shortcut icon" href="static/favicon.ico">
   </head>
   <body class="back">
     {% if username %}
@@ -15,5 +16,6 @@
       <source src="static/videos/{{ video_ID }}.mp4" type="video/mp4">
       Your broswer doesn't support this format.
     </video>
+    <h1>{{ uploader }}</h1>
   </body>
 </html>

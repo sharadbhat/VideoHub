@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>VideoHub</title>
+  </head>
+  <body>
+    {% for i in lista %}
+      <a href="{{ url_for('watch_video', v = i[:-4]) }}">{{ i }}</a>
+    {% endfor %}
+  </body>
+</html>
