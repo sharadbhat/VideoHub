@@ -7,19 +7,29 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 class Database:
     def __init__(self): # WORKS
-        self.db = pymysql.connect(host="localhost", user="root", passwd="*******", db="video")
+        self.db = pymysql.connect(host="localhost", user="root", passwd="******", db="video")
         self.cur = self.db.cursor()
+
+    def get_most_viewed(self):
+        """
+        - Returns a list of top 10 video IDs in the descending order of view count from the VIDEOS table.
+        """
+        self.cur.execute("SELECT video_ID FROM videos ORDER BY view_count DESC LIMIT 10")
+        most_viewed_video_IDs = []
+        for ID in self.cur.fetchall():
+            most_viewed_video_IDs.append(ID[0])
+        return most_viewed_video_IDs
 
     def is_valid_user(self, username, password): # WORKS
         """
         - Checks if the entered username and password corresponds to a valid user in the USERS and ADMINS table.
         """
-        done = self.cur.execute("SELECT password FROM users WHERE username=\"{}\"".format(username))
+        done1 = self.cur.execute("SELECT password FROM users WHERE username=\"{}\"".format(username))
         done2 = self.cur.execute("SELECT username FROM admins WHERE username=\"{}\"".format(username))
-        if done == 0 and done2 == 0: # If both queries are unsuccessful, username doesn't exist in both tables.
+        if done1 == 0 and done2 == 0: # If both queries are unsuccessful, username doesn't exist in both tables.
             return False
         else:
-            if done == 1: # If username exists in USERS table.
+            if done1 == 1: # If username exists in USERS table.
                 self.cur.execute("SELECT password FROM users WHERE username=\"{}\"".format(username))
                 stored_password = self.cur.fetchone()[0]
                 return check_password_hash(stored_password, password) # Returns True if the hashes match.
@@ -32,9 +42,9 @@ class Database:
         """
         - Checks if the username is already present in the USERS table.
         """
-        done = self.cur.execute("SELECT username FROM users WHERE username=\"{}\"".format(username))
+        done1 = self.cur.execute("SELECT username FROM users WHERE username=\"{}\"".format(username))
         done2 = self.cur.execute("SELECT username FROM admins WHERE username=\"{}\"".format(username))
-        if done == 0 and done2 == 0: # If both queries are unsuccessful, username doesn't exist in both tables.
+        if done1 == 0 and done2 == 0: # If both queries are unsuccessful, username doesn't exist in both tables.
             return False
         else:
             return True

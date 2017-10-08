@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>VideoHub</title>
+  </head>
+  <body>
+    {% for i in most_viewed %}
+      <a href="{{ url_for('watch_video', v = i) }}">{{ most_viewed[i] }}</a><br>
+    {% endfor %}
+  </body>
+</html>

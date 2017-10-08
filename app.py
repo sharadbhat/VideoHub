@@ -26,9 +26,14 @@ def start(): #WORKS
     - Redirects to dashboard if logged in.
     """
     if 'user' in session:
-        return redirect(url_for("dashboard"), username = session['user'])
+        return redirect(url_for("dashboard"))
     else:
-        return redirect(url_for("login_form"))
+        most_viewed_video_IDs = db.get_most_viewed()
+        most_viewed = {}
+        for ID in most_viewed_video_IDs:
+            title = db.get_video_title(ID)
+            most_viewed.update({ID : title})
+        return render_template('home.html', most_viewed = most_viewed)
 
 
 
@@ -172,7 +177,7 @@ def logout_user(): #WORKS
     - Redirects to login page.
     """
     session.pop('user', None)
-    return redirect(url_for("login_form"))
+    return redirect(url_for("start"))
 
 
 
