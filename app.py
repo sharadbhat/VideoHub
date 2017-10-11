@@ -309,6 +309,37 @@ def list():
         result_dict.update({ID : db.get_video_title(ID[:-4])})
     return render_template('list.html', lista = result_dict)
 
+#Admin part
+
+@app.route("/adminsignup", methods = ['GET', 'POST'])
+def admin_signup_form(): #WORKS
+    """
+    In GET request
+        - Displays sign up page.
+    """
+    if request.method == 'GET':
+        signup_error = request.args.get('s_error', False)
+        if signup_error == False:
+            return render_template('signup.html')
+        else:
+            return render_template('signup.html', signupError = True)
+    """
+    In POST request
+        - Gets data from form.
+        - Checks if username is not already present.
+        - Adds to database if not present.
+        - Redirects to dashboard.
+    """
+    if request.method == 'POST':
+        username = (request.form['username']).lower().strip()
+        password = (request.form['password'])
+        if db.is_valid_username(username) == False:
+            db.add_admin(username, password)
+            session['user'] = username
+            return redirect(url_for("dashboard"))
+        else:
+            return redirect(url_for("signup_form", s_error = True))
+
 
 if __name__ == "__main__":
     app.run(threaded=True)

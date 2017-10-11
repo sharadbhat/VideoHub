@@ -7,7 +7,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 class Database:
     def __init__(self): # WORKS
-        self.db = pymysql.connect(host="localhost", user="root", passwd="******", db="video")
+        self.db = pymysql.connect(host="localhost", user="root", passwd="", db="video")
         self.cur = self.db.cursor()
 
     def get_most_viewed(self):
@@ -159,4 +159,17 @@ class Database:
         - Returns a random video ID from the VIDEOS table.
         """
         self.cur.execute("SELECT video_ID FROM videos ORDER BY RAND() LIMIT 1") # Selects video_ID from 1 random row.
-        return self.cur.fetchone()[0]
+	return self.cur.fetchone()[0]
+
+#Admin part
+    def add_admin(self, username, password):
+	"""
+	- Add the new admin credentials to the ADMINS table.
+	"""
+        password_hash = generate_password_hash(password) # Generates a SHA256 hash.
+        try:
+            self.cur.execute("INSERT INTO ADMINS VALUES(\"{}\", \"{}\")".format(username, password_hash))
+            self.db.commit()
+        except:
+            self.db.rollback()
+
