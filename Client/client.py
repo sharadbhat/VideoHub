@@ -32,6 +32,9 @@ def start(): #WORKS
     logged_in = False
     if 'user' in session:
         logged_in = True
+        is_admin = (requests.post(url='http://127.0.0.1:8080/is-admin', data={'username' : session['user']}).content).decode("utf-8") # Done
+        if is_admin == "True":
+            return redirect(url_for('dashboard'))
     most_viewed_video_IDs = ((requests.get('http://127.0.0.1:8080/get-most-viewed')).content).decode("utf-8") # Done
     most_viewed = {}
     most_viewed_video_IDs = ast.literal_eval(most_viewed_video_IDs)
