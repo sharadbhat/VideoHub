@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Administrator Dashboard</title>
+  <link rel='stylesheet prefetch' href='http://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css'>
+  <link rel="stylesheet" href="http://127.0.0.1:8080/css/dashboard.css">
+  <link rel="icon" href="http://127.0.0.1:8080/favicon.png" type="image/png">
+</head>
+
+<body>
+    <br><br>
+    <h1 align="center">Administrator Dashboard</h1>
+    <div class="wrapper">
+    <div style="text-align:center">
+      <a href="{{ url_for('dashboard') }}" class="buttonDash">Remove user</a>
+      <br><br>
+      <a href="{{ url_for('dashboard') }}" class="buttonDash">View flagged videos</a>
+      <br><br>
+      <a href="{{ url_for('dashboard') }}" class="buttonDash">Delete video</a>
+      <br><br>
+      <a href="{{ url_for('logout_user') }}" class="buttonDash">Logout</a>
+    </div>
+  </div>
+</body>
+</html>

@@ -2,14 +2,14 @@
 <html >
 <head>
   <meta charset="UTF-8">
-  <title>Change Password</title>
+  <title>VideoHub</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
   <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900'>
   <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Montserrat:400,700'>
   <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'>
-  <link rel="stylesheet" href="static/css/style.css?version=1">
-  <link rel="stylesheet" href="static/css/alert.css?version=1">
-  <link rel="shortcut icon" href="static/favicon.ico">
+  <link rel="stylesheet" href="http://127.0.0.1:8080/css/style.css">
+  <link rel="stylesheet" href="http://127.0.0.1:8080/css/alert.css">
+  <link rel="icon" href="http://127.0.0.1:8080/favicon.png" type="image/png">
 </head>
 
 <body>
@@ -19,16 +19,17 @@
       </div>
     </div>
     <div class="form">
-      <form class="login-form" action="change-password" method="post">
-        {% if update_error %}
+      <form class="login-form" action="login" method="post">
+        {% if loginError %}
           <div class="alert">
             <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-            Old password does not match
+            Invalid credentials
           </div>
         {% endif %}
-        <input type="password" name="oldPassword" placeholder="old password" required autofocus/>
-        <input type="password" name="newPassword" placeholder="new password" required/>
-        <button>update</button>
+        <input type="text" name="username" placeholder="username" required autofocus/>
+        <input type="password" name="password" placeholder="password" required/>
+        <button>login</button>
+        <p class="message">Not registered? <a href="{{ url_for('signup_form') }}">Create an account</a></p>
       </form>
     </div>
 </body>

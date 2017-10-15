@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://127.0.0.1:8080/css/video.css">
+    <link rel="icon" href="http://127.0.0.1:8080/favicon.png" type="image/png">
+  </head>
+  <body class="back">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+     <div class="container-fluid">
+       <div class="navbar-header">
+         <a style="color: #16A085;" class="navbar-brand" href="{{ url_for('start') }}">VideoHub</a>
+       </div>
+       <form class="ml navbar-form navbar-left" action="search" method="post">
+          <div class="form-group">
+            <input style="width:500px;" name="search" type="text" class="form-control" placeholder="Search">
+          </div>
+          <button type="submit" class="bt btn btn-default"><span class="glyphicon glyphicon-search"></span> Submit</button>
+       </form>
+       {% if not logged_in %}
+       <ul class="nav navbar-nav navbar-right">
+         <li><a style="color: #16A085;" href="{{ url_for('random_video') }}"><span class="sp glyphicon glyphicon-random"></span>  Random</a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('signup_form') }}"><span class="sp glyphicon glyphicon-user"></span> Sign Up</a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('login_form') }}"><span class="sp glyphicon glyphicon-log-in"></span>  Login</a></li>
+       </ul>
+       {% endif %}
+       {% if logged_in %}
+       <ul class="nav navbar-nav navbar-right">
+         <li><a style="color: #16A085;" href="{{ url_for('random_video') }}"><span class="sp glyphicon glyphicon-random"></span>  Random</a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('upload_form') }}"><span class="sp glyphicon glyphicon-upload"></span> Upload</a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('logout_user') }}"><span class="sp glyphicon glyphicon-log-out"></span> Logout</a></li>
+       </ul>
+       {% endif %}
+     </div>
+    </nav>
+    <br><br><br>
+    <h1 align="center" class="heading1">{{ title }}</h1>
+    <video class="center" controls autoplay style="position:center;">
+      <source src="http://127.0.0.1:8080/video/{{ video_ID }}" type="video/mp4">
+      Your broswer doesn't support this format.
+    </video>
+    <h1>{{ uploader }}</h1>
+  </body>
+</html>

@@ -7,14 +7,14 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 class Database:
     def __init__(self): # WORKS
-        self.db = pymysql.connect(host="localhost", user="root", passwd="******", db="video")
+        self.db = pymysql.connect(host="localhost", user="root", passwd="*********", db="video")
         self.cur = self.db.cursor()
 
     def get_most_viewed(self):
         """
         - Returns a list of top 10 video IDs in the descending order of view count from the VIDEOS table.
         """
-        self.cur.execute("SELECT video_ID FROM videos ORDER BY view_count DESC LIMIT 10")
+        self.cur.execute("SELECT video_ID FROM videos ORDER BY CAST(view_count as decimal) DESC LIMIT 10")
         most_viewed_video_IDs = []
         for ID in self.cur.fetchall():
             most_viewed_video_IDs.append(ID[0])
@@ -91,7 +91,8 @@ class Database:
             for row in self.cur.fetchall():
                 videos_to_delete.append(row[0]) # Get video IDs of all videos uploaded by the user.
             for ID in videos_to_delete:
-                os.remove('static/videos/' + str(ID) + ".mp4") # Deletes the video from the static/viedos directory.
+                os.remove('static/videos/' + str(ID) + '.mp4') # Deletes the video from the static/videos directory.
+                os.remove('static/images/' + str(ID) + '.jpg') # Deletes the image from the static/images directory.
             self.cur.execute("DELETE FROM users WHERE username = \"{}\"".format(username))
             self.db.commit()
         except:
@@ -160,3 +161,32 @@ class Database:
         """
         self.cur.execute("SELECT video_ID FROM videos ORDER BY RAND() LIMIT 1") # Selects video_ID from 1 random row.
         return self.cur.fetchone()[0]
+
+    def get_watched(self, username):
+        """
+        - Returns a list of video IDs watched by the user from the WATCHED table.
+        """
+        self.cur.execute("SELECT video_ID FROM watched WHERE username = \"{}\"".format(username))
+        watched_video_IDs = []
+        for ID in self.cur.fetchall():
+            watched_video_IDs.append(ID[0])
+        return watched_video_IDs
+
+    def get_views(self, video_ID):
+        """
+        - Returns the view count of the video with the corresponding video_ID.
+        """
+        self.cur.execute("SELECT view_count FROM videos WHERE video_ID = \"{}\"".format(video_ID))
+        return self.cur.fetchone()[0]
+
+    def delete_video(self, video_ID):
+        """
+        - Deletes the video from the database.
+        """
+        try:
+            self.cur.execute("DELETE FROM videos WHERE video_ID = \"{}\"".format(video_ID))
+            self.db.commit()
+            os.remove('static/videos/' + str(video_ID) + '.mp4')
+            os.remove('static/images/' + str(video_ID) + '.jpg')
+        except:
+            self.db.rollback()

@@ -23,15 +23,25 @@
   font-size: 29px;
 }
 
-.right-top {
-  float: right;
-  color: #16A085;
-  font-family: arial;
-  font-weight: 300;
-  font-size: 20px;
-  text-decoration: none;
+.back {
+  background: rgba(0,0,0,0.9);
 }
 
-a, a:visited, a:hover, a:active {
+.ml {
+  margin-left: 20%;
+}
+
+.bt {
+  border-width: 0px;
+  background-color: #16A085;
+}
+
+.btn:hover
+{
+color: #FFFFFF;
+background-color:#0D5B4C;
+}
+
+.sp {
   color: #16A085;
 }
