@@ -7,7 +7,11 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 class Database:
     def __init__(self): # WORKS
+<<<<<<< HEAD:Server/database.py
         self.db = pymysql.connect(host="localhost", user="root", passwd="*********", db="video")
+=======
+        self.db = pymysql.connect(host="localhost", user="root", passwd="", db="video")
+>>>>>>> d7794a60207114c2ecad21b2604e729588214f3a:database.py
         self.cur = self.db.cursor()
 
     def get_most_viewed(self):
@@ -160,6 +164,7 @@ class Database:
         - Returns a random video ID from the VIDEOS table.
         """
         self.cur.execute("SELECT video_ID FROM videos ORDER BY RAND() LIMIT 1") # Selects video_ID from 1 random row.
+<<<<<<< HEAD:Server/database.py
         return self.cur.fetchone()[0]
 
     def get_watched(self, username):
@@ -190,3 +195,19 @@ class Database:
             os.remove('static/images/' + str(video_ID) + '.jpg')
         except:
             self.db.rollback()
+=======
+	return self.cur.fetchone()[0]
+
+#Admin part
+    def add_admin(self, username, password):
+	"""
+	- Add the new admin credentials to the ADMINS table.
+	"""
+        password_hash = generate_password_hash(password) # Generates a SHA256 hash.
+        try:
+            self.cur.execute("INSERT INTO ADMINS VALUES(\"{}\", \"{}\")".format(username, password_hash))
+            self.db.commit()
+        except:
+            self.db.rollback()
+
+>>>>>>> d7794a60207114c2ecad21b2604e729588214f3a:database.py
