@@ -43,7 +43,6 @@ CREATE TABLE `admins` (
 
 LOCK TABLES `admins` WRITE;
 /*!40000 ALTER TABLE `admins` DISABLE KEYS */;
-INSERT INTO `admins` VALUES ('admin','pbkdf2:sha256:50000$SBkHcINZ$b75c69ba6594761c955e9928b2ef5f83c56fee70b5e872bdfc416e9cedbd69bf');
 /*!40000 ALTER TABLE `admins` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -119,7 +118,6 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES ('shaman','pbkdf2:sha256:50000$H6a2hucn$64c62fe57274b8266f9cc92e27b35fb672c6b287534a0f963fa0151b4383b228'),('sharad','pbkdf2:sha256:50000$zZ9aZwUa$6a4cddef7242dd77421edbd618e08354723e4804a7a065b803f1ade437e298e7');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -149,7 +147,6 @@ CREATE TABLE `videos` (
 
 LOCK TABLES `videos` WRITE;
 /*!40000 ALTER TABLE `videos` DISABLE KEYS */;
-INSERT INTO `videos` VALUES ('MjI2MjE2OTAxNjUzMTAy','Joji - I Don\'t Wanna Waste My Time','sharad','3','0','0'),('MTc3MTcxNTY2MjM4MTgx','Zonderling - Tunnel Vision (Don Diablo Edit)','sharad','7','0','0'),('MTg2NTA1MTgxODQwNTEw','Skrillex - Bangarang feat. Sirah','sharad','3','0','0'),('MTM1MDAzMDE2Mjg2NzA2','Don Diablo - Drifter ft. DYU','sharad','1','0','0'),('MTU2MDY1NzMzMjI0Nzg2','KSHMR - Jammu','sharad','1','0','0');
 /*!40000 ALTER TABLE `videos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -176,7 +173,6 @@ CREATE TABLE `watched` (
 
 LOCK TABLES `watched` WRITE;
 /*!40000 ALTER TABLE `watched` DISABLE KEYS */;
-INSERT INTO `watched` VALUES ('MjI2MjE2OTAxNjUzMTAy','shaman'),('MjI2MjE2OTAxNjUzMTAy','sharad'),('MTc3MTcxNTY2MjM4MTgx','sharad'),('MTg2NTA1MTgxODQwNTEw','sharad'),('MTM1MDAzMDE2Mjg2NzA2','sharad'),('MTU2MDY1NzMzMjI0Nzg2','sharad');
 /*!40000 ALTER TABLE `watched` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
