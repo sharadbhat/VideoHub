@@ -8,6 +8,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 class Database:
     def __init__(self): # WORKS
         self.db = pymysql.connect(host="localhost", user="root", passwd="*********", db="video")
+        self.cur = self.db.cursor()
+
     def get_most_viewed(self):
         """
         - Returns a list of top 10 video IDs in the descending order of view count from the VIDEOS table.
