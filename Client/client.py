@@ -306,7 +306,7 @@ def delete_own_video():
         if is_deleted == "True":
             return redirect(url_for('my_videos'))
         else:
-            return redirect(url_for('delete_own_video', d_error = True))
+            return redirect(url_for('delete_own_video', video_ID = video_ID, d_error = True))
 
 
 @app.route("/watch", methods = ['GET'])
