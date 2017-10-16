@@ -7,7 +7,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 class Database:
     def __init__(self): # WORKS
-        self.db = pymysql.connect(host="localhost", user="root", passwd="********", db="video")
+        self.db = pymysql.connect(host="localhost", user="root", passwd="*********", db="video")
         self.cur = self.db.cursor()
 
     def get_most_viewed(self):
@@ -190,3 +190,33 @@ class Database:
             os.remove('static/images/' + str(video_ID) + '.jpg')
         except:
             self.db.rollback()
+
+    def is_available(self, video_ID):
+        """
+        - Checks if the video ID is present in the database.
+        """
+        done = self.cur.execute("SELECT video_ID FROM videos WHERE video_ID = \"{}\"".format(video_ID))
+        if done == 1:
+            return True
+        else:
+            return False
+
+    def get_uploaded(self, username):
+        """
+        - Returns a list of all videos uplaoded by the user with the corresponding username.
+        """
+        self.cur.execute("SELECT video_ID FROM videos WHERE uploader = \"{}\"".format(username))
+        uploaded_video_IDs = []
+        for ID in self.cur.fetchall():
+            uploaded_video_IDs.append(ID[0])
+        return uploaded_video_IDs
+
+    def is_user_present(self, username):
+        """
+        - Returns True if the username is present in the USERS table.
+        """
+        done = self.cur.execute("SELECT username FROM users WHERE username = \"{}\"".format(username))
+        if done == 1:
+            return True
+        else:
+            return False

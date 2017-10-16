@@ -54,12 +54,14 @@ def return_favicon():
 
 
 
-@app.route("/font/<filename>", methods = ['GET'])
-def return_font():
+@app.route("/is-available/<video_ID>", methods = ['GET'])
+def return_availability(video_ID):
     """
+    - Returns True is the video ID is present in the database.
+    - Otherwise False.
     """
     if request.method == 'GET':
-        return send_file('./static/fonts/{}'.format(filename))
+        return str(db.is_available(video_ID))
 
 
 
@@ -183,6 +185,10 @@ def return_is_valid_user():
 
 @app.route("/is-valid-username/<username>", methods = ["GET"])
 def return_is_valid_username(username):
+    """
+    - Returns True if the username is a valid username in the USERS table..
+    - Else returns False.
+    """
     if request.method == 'GET':
         return str(db.is_valid_username(username))
 
@@ -190,6 +196,9 @@ def return_is_valid_username(username):
 
 @app.route("/add-user", methods = ['POST'])
 def add_user():
+    """
+    - Adds the user details to the USERS table.
+    """
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
@@ -200,6 +209,9 @@ def add_user():
 
 @app.route("/update-password", methods = ['POST'])
 def update_password():
+    """
+    - Updates the user password in the USERS table.
+    """
     if request.method == 'POST':
         username = request.form['username']
         old_password = request.form['old_password']
@@ -214,6 +226,9 @@ def update_password():
 
 @app.route("/delete-user", methods = ['POST'])
 def delete_user():
+    """
+    - Removes the user details from the USERS table.
+    """
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
@@ -227,6 +242,10 @@ def delete_user():
 
 @app.route("/is-admin", methods = ['POST'])
 def return_is_admin():
+    """
+    - Returns True is the username is an administrator.
+    - Otherwise False.
+    """
     if request.method == 'POST':
         username = request.form['username']
         return str(db.is_admin(username))
@@ -235,6 +254,10 @@ def return_is_admin():
 
 @app.route("/upload", methods = ['POST'])
 def upload_video():
+    """
+    - Accepts the video is base64 encoded form and decodes it and saves it.
+    - Returns the video ID.
+    """
     if request.method == 'POST':
         video_ID = str(base64.b64encode(str.encode(str(uuid.uuid4().fields[5]))))[2:-1]
         username = request.form['username']
@@ -250,9 +273,48 @@ def upload_video():
 
 @app.route("/watched/<username>", methods = ['GET'])
 def return_watched(username):
+    """
+    - Returns a list of video IDs watched by the user with the corresponding username.
+    """
     if request.method == 'GET':
         return str(db.get_watched(username))
 
+
+
+@app.route("/uploaded/<username>", methods = ['GET'])
+def return_uploaded(username):
+    """
+    - Returns a list of video IDs uploaded by the user with the corresponding username.
+    """
+    if request.method == 'GET':
+        return str(db.get_uploaded(username))
+
+
+
+@app.route("/is-user-present/<username>", methods = ['GET'])
+def return_user_availability(username):
+    """
+    - Returns True if the username is a username in the USERS table.
+    """
+    if request.method == 'GET':
+        return str(db.is_user_present(username))
+
+
+
+@app.route("/delete-video", methods = ['POST'])
+def delete_video():
+    """
+    - Deletes the video from the VIDEOS table.
+    """
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        video_ID = request.form['video_ID']
+        if db.is_valid_user(username, password) == True:
+            db.delete_video(video_ID)
+            return str(True)
+        else:
+            return str(False)
 
 
 if __name__ == '__main__':

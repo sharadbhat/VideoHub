@@ -1,4 +1,4 @@
-from flask import Flask, redirect, url_for, session, request, render_template_string
+from flask import Flask, redirect, url_for, session, request, render_template_string, abort
 import requests
 import os
 import ast
@@ -18,6 +18,16 @@ def error_404(e):
     - Displays the 404 error page.
     """
     error_page = ((requests.get(url='http://127.0.0.1:8080/html/{}'.format('404.html'))).content).decode("utf-8") # Done
+    return render_template_string(error_page)
+
+
+
+@app.errorhandler(403)
+def error_403(e):
+    """
+    - Displays the 404 error page.
+    """
+    error_page = ((requests.get(url='http://127.0.0.1:8080/html/{}'.format('403.html'))).content).decode("utf-8") # Done
     return render_template_string(error_page)
 
 
@@ -166,7 +176,7 @@ def delete_own_account(): #WORKS
         if 'user' not in session:
             return redirect(url_for('login_form'))
         confirmation_error = request.args.get('c_error', False)
-        confirmation_page = ((requests.get(url='http://127.0.0.1:8080/html/{}'.format('delete-confirm.html'))).content).decode("utf-8") # Done
+        confirmation_page = ((requests.get(url='http://127.0.0.1:8080/html/{}'.format('account_delete_confirm.html'))).content).decode("utf-8") # Done
         if confirmation_error == False:
             return render_template_string(confirmation_page)
         else:
@@ -259,7 +269,7 @@ def upload_form(): #WORKS
 
 
 
-@app.route("/delete-video", methods = ['GET'])
+@app.route("/remove", methods = ['GET', 'POST'])
 def delete_own_video():
     """
     In GET request
@@ -267,15 +277,36 @@ def delete_own_video():
         - If the uploader and current user are the same, it deletes the video.
         - Redirects to dashboard.
     """
-    if 'user' not in session:
-        return redirect(url_for('login_form'))
-    video_ID = request.args.get('video_ID')
-    uploader = ((requests.get('http://127.0.0.1:8080/uploader/{}'.format(video_ID))).content).decode("utf-8") # Done
-    username = session['user']
-    if username == uploader:
-        pass
-    return redirect(url_for('dashboard'))
-
+    if request.method == 'GET':
+        if 'user' not in session:
+            return redirect(url_for('login_form'))
+        d_error = request.args.get('d_error', False)
+        video_ID = request.args.get('video_ID')
+        uploader = ((requests.get('http://127.0.0.1:8080/uploader/{}'.format(video_ID))).content).decode("utf-8") # Done
+        username = session['user']
+        if username != uploader:
+            abort(403)
+        else:
+            video_delete_page = ((requests.get(url='http://127.0.0.1:8080/html/{}'.format('video_delete_confirmation.html'))).content).decode("utf-8")
+            if d_error == False:
+                return render_template_string(video_delete_page, video_ID = video_ID)
+            else:
+                return render_template_string(video_delete_page, video_ID = video_ID, c_error = True)
+    """
+    In POST request
+        - Accepts password from form.
+        - Checks if the user is valid.
+        - Deletes the video.
+    """
+    if request.method == 'POST':
+        username = session['user']
+        password = request.form['password']
+        video_ID = request.form['video_ID']
+        is_deleted = ((requests.post(url='http://127.0.0.1:8080/delete-video', data={'username' : username, 'password' : password, 'video_ID' : video_ID})).content).decode("utf-8") # Done
+        if is_deleted == "True":
+            return redirect(url_for('my_videos'))
+        else:
+            return redirect(url_for('delete_own_video', d_error = True))
 
 
 @app.route("/watch", methods = ['GET'])
@@ -288,6 +319,10 @@ def watch_video(): #WORKS
         video_ID = request.args.get('v', None)
         if video_ID == None:
             return redirect(url_for('dashboard'))
+        is_available = ((requests.get(url='http://127.0.0.1:8080/is-available/{}'.format(video_ID))).content).decode("utf-8")
+        print(is_available)
+        if is_available == "False":
+            return abort(404)
         title = ((requests.get(url='http://127.0.0.1:8080/title/{}'.format(video_ID))).content).decode("utf-8") # Done
         uploader = ((requests.get(url='http://127.0.0.1:8080/uploader/{}'.format(video_ID))).content).decode("utf-8") # Done
         requests.post(url='http://127.0.0.1:8080/update-count', data={'video_ID' : video_ID})
@@ -359,19 +394,71 @@ def watched_videos():
     In GET request
         - Displays a page of all videos watched by the user in the WATCHED tables.
     """
-    if 'user' not in session:
-        return redirect(url_for('login_form'))
-    username = session['user']
-    watched_IDs = ((requests.get(url='http://127.0.0.1:8080/watched/{}'.format(username))).content).decode("utf-8") # Done
-    watched_IDs = ast.literal_eval(watched_IDs)
-    watched_dictionary = {}
-    for ID in watched_IDs:
-        title = ((requests.get(url='http://127.0.0.1:8080/title/{}'.format(ID))).content).decode("utf-8") # Done
-        views = ((requests.get(url='http://127.0.0.1:8080/views/{}'.format(ID))).content).decode("utf-8") # Done
-        uploader = ((requests.get(url='http://127.0.0.1:8080/uploader/{}'.format(ID))).content).decode("utf-8") # Done
-        watched_dictionary.update({ID : [title, views, uploader]})
-    watched_page = ((requests.get(url='http://127.0.0.1:8080/html/{}'.format('watched.html'))).content).decode("utf-8")
-    return render_template_string(watched_page, watched = watched_dictionary)
+    if request.method == 'GET':
+        if 'user' not in session:
+            return redirect(url_for('login_form'))
+        username = session['user']
+        watched_IDs = ((requests.get(url='http://127.0.0.1:8080/watched/{}'.format(username))).content).decode("utf-8") # Done
+        watched_IDs = ast.literal_eval(watched_IDs)
+        watched_dictionary = {}
+        for ID in watched_IDs:
+            title = ((requests.get(url='http://127.0.0.1:8080/title/{}'.format(ID))).content).decode("utf-8") # Done
+            views = ((requests.get(url='http://127.0.0.1:8080/views/{}'.format(ID))).content).decode("utf-8") # Done
+            uploader = ((requests.get(url='http://127.0.0.1:8080/uploader/{}'.format(ID))).content).decode("utf-8") # Done
+            watched_dictionary.update({ID : [title, views, uploader]})
+        watched_page = ((requests.get(url='http://127.0.0.1:8080/html/{}'.format('watched.html'))).content).decode("utf-8")
+        return render_template_string(watched_page, watched = watched_dictionary)
+
+
+
+@app.route("/user/<username>", methods = ['GET'])
+def user_videos(username):
+    """
+    In GET request
+        - Displays a page of all videos uploaded by the user in the VIDEOS table.
+    """
+    if request.method == 'GET':
+        if 'user' in session:
+            if username == session['user']:
+                return redirect(url_for('my_videos'))
+        is_user_present = ((requests.get(url='http://127.0.0.1:8080/is-user-present/{}'.format(username))).content).decode("utf-8") # Done
+        if is_user_present == "False":
+            abort(404)
+        uploaded_IDs = ((requests.get(url='http://127.0.0.1:8080/uploaded/{}'.format(username))).content).decode("utf-8") # Done
+        uploaded_IDs = ast.literal_eval(uploaded_IDs)
+        uploaded_dictionary = {}
+        for ID in uploaded_IDs:
+            title = ((requests.get(url='http://127.0.0.1:8080/title/{}'.format(ID))).content).decode("utf-8") # Done
+            views = ((requests.get(url='http://127.0.0.1:8080/views/{}'.format(ID))).content).decode("utf-8") # Done
+            uploaded_dictionary.update({ID : [title, views]})
+        user_page = ((requests.get(url='http://127.0.0.1:8080/html/{}'.format('user.html'))).content).decode("utf-8")
+        logged_in = False
+        if 'user' in session:
+            logged_in = True
+        return render_template_string(user_page, logged_in = logged_in, username = username, user_videos = uploaded_dictionary)
+
+
+
+
+@app.route("/my-videos", methods = ['GET'])
+def my_videos():
+    """
+    In GET request
+        - Returns a page of videos uploaded by the logged in user.
+    """
+    if request.method == 'GET':
+        if 'user' not in session:
+            return redirect(url_for('login_form'))
+        username = session['user']
+        uploaded_IDs = ((requests.get(url='http://127.0.0.1:8080/uploaded/{}'.format(username))).content).decode("utf-8") # Done
+        uploaded_IDs = ast.literal_eval(uploaded_IDs)
+        uploaded_dictionary = {}
+        for ID in uploaded_IDs:
+            title = ((requests.get(url='http://127.0.0.1:8080/title/{}'.format(ID))).content).decode("utf-8") # Done
+            views = ((requests.get(url='http://127.0.0.1:8080/views/{}'.format(ID))).content).decode("utf-8") # Done
+            uploaded_dictionary.update({ID : [title, views]})
+        my_videos_page = ((requests.get(url='http://127.0.0.1:8080/html/{}'.format('my_videos.html'))).content).decode("utf-8")
+        return render_template_string(my_videos_page, username = username, user_videos = uploaded_dictionary)
 
 
 

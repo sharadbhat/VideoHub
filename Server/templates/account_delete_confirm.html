@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>Delete Account</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+  <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900'>
+  <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Montserrat:400,700'>
+  <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'>
+  <link rel="stylesheet" href="http://127.0.0.1:8080/css/style.css">
+  <link rel="stylesheet" href="http://127.0.0.1:8080/css/alert.css">
+  <link rel="icon" href="http://127.0.0.1:8080/favicon.png" type="image/png">
+</head>
+
+<body>
+    <div class="container">
+      <div class="info">
+        <h1 style="color:#16A085;">Re-enter password to confirm account deletion</h1>
+      </div>
+    </div>
+    <div class="form">
+      <form class="login-form" action="delete" method="post">
+        {% if c_error %}
+          <div class="alert">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            Invalid password
+          </div>
+        {% endif %}
+        <input id="password" type="password" name="password" placeholder="re-enter password" required autofocus/>
+        <button>confirm</button>
+        <a href="{{ url_for('dashboard') }}">
+          <button onclick="cancel()">cancel</button>
+        </a>
+      </form>
+    </div>
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script  src="http://127.0.0.1:8080/js/delete.js"></script>
+</body>
+</html>
