@@ -10,7 +10,7 @@ class Database:
         self.db = pymysql.connect(host="localhost", user="root", passwd="*********", db="video")
         self.cur = self.db.cursor()
 
-    def get_most_viewed(self):
+    def get_most_viewed(self): # WORKS
         """
         - Returns a list of top 10 video IDs in the descending order of view count from the VIDEOS table.
         """
@@ -38,7 +38,7 @@ class Database:
                 stored_password = self.cur.fetchone()[0]
                 return check_password_hash(stored_password, password) # Returns True if the hashes match.
 
-    def is_valid_username(self, username):
+    def is_valid_username(self, username): # WORKS
         """
         - Checks if the username is already present in the USERS table.
         """
@@ -155,14 +155,14 @@ class Database:
         except:
             return "Error getting username"
 
-    def get_random_ID(self):
+    def get_random_ID(self): # WORKS
         """
         - Returns a random video ID from the VIDEOS table.
         """
         self.cur.execute("SELECT video_ID FROM videos ORDER BY RAND() LIMIT 1") # Selects video_ID from 1 random row.
         return self.cur.fetchone()[0]
 
-    def get_watched(self, username):
+    def get_watched(self, username): # WORKS
         """
         - Returns a list of video IDs watched by the user from the WATCHED table.
         """
@@ -172,14 +172,14 @@ class Database:
             watched_video_IDs.append(ID[0])
         return watched_video_IDs
 
-    def get_views(self, video_ID):
+    def get_views(self, video_ID): # WORKS
         """
         - Returns the view count of the video with the corresponding video_ID.
         """
         self.cur.execute("SELECT view_count FROM videos WHERE video_ID = \"{}\"".format(video_ID))
         return self.cur.fetchone()[0]
 
-    def delete_video(self, video_ID):
+    def delete_video(self, video_ID): # WORKS
         """
         - Deletes the video from the database.
         """
@@ -191,7 +191,7 @@ class Database:
         except:
             self.db.rollback()
 
-    def is_available(self, video_ID):
+    def is_available(self, video_ID): # WORKS
         """
         - Checks if the video ID is present in the database.
         """
@@ -201,7 +201,7 @@ class Database:
         else:
             return False
 
-    def get_uploaded(self, username):
+    def get_uploaded(self, username): # WORKS
         """
         - Returns a list of all videos uplaoded by the user with the corresponding username.
         """
@@ -211,7 +211,7 @@ class Database:
             uploaded_video_IDs.append(ID[0])
         return uploaded_video_IDs
 
-    def is_user_present(self, username):
+    def is_user_present(self, username): # WORKS
         """
         - Returns True if the username is present in the USERS table.
         """

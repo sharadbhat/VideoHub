@@ -124,7 +124,7 @@ def signup_form(): #WORKS
         if is_valid_username == "False":
             requests.post(url='http://127.0.0.1:8080/add-user', data={'username' : username, 'password' : password}) # Done
             session['user'] = username
-            return redirect(url_for("dashboard"))
+            return redirect(url_for("start"))
         else:
             return redirect(url_for("signup_form", s_error = True))
 
@@ -161,7 +161,7 @@ def password_update_form(): #WORKS
         new_password = request.form['newPassword']
         done = (requests.post(url='http://127.0.0.1:8080/update-password', data={'username' : username, 'old_password' : old_password, 'new_password' : new_password}).content).decode("utf-8") # Done
         if done == "True":
-            return redirect(url_for('dashboard'))
+            return redirect(url_for('start'))
         else:
             return redirect(url_for('password_update_form', u_error = True))
 
@@ -299,6 +299,8 @@ def delete_own_video():
         - Deletes the video.
     """
     if request.method == 'POST':
+        if 'user' not in session:
+            return abort(403)
         username = session['user']
         password = request.form['password']
         video_ID = request.form['video_ID']
@@ -320,7 +322,6 @@ def watch_video(): #WORKS
         if video_ID == None:
             return redirect(url_for('dashboard'))
         is_available = ((requests.get(url='http://127.0.0.1:8080/is-available/{}'.format(video_ID))).content).decode("utf-8")
-        print(is_available)
         if is_available == "False":
             return abort(404)
         title = ((requests.get(url='http://127.0.0.1:8080/title/{}'.format(video_ID))).content).decode("utf-8") # Done

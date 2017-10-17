@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>{{ title }}</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://127.0.0.1:8080/css/bootstrap-min-337.css">
     <link rel="stylesheet" href="http://127.0.0.1:8080/css/video.css">
     <link rel="icon" href="http://127.0.0.1:8080/favicon.png" type="image/png">
   </head>
@@ -17,20 +17,20 @@
           <div class="form-group">
             <input style="width:500px;" name="search" type="text" class="form-control" placeholder="Search">
           </div>
-          <button type="submit" class="bt btn btn-default"><span class="glyphicon glyphicon-search"></span> Submit</button>
+          <button type="submit" class="bt btn btn-default">Submit</button>
        </form>
        {% if not logged_in %}
        <ul class="nav navbar-nav navbar-right">
-         <li><a style="color: #16A085;" href="{{ url_for('random_video') }}"><span class="sp glyphicon glyphicon-random"></span>  Random</a></li>
-         <li><a style="color: #16A085;" href="{{ url_for('signup_form') }}"><span class="sp glyphicon glyphicon-user"></span> Sign Up</a></li>
-         <li><a style="color: #16A085;" href="{{ url_for('login_form') }}"><span class="sp glyphicon glyphicon-log-in"></span>  Login</a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('random_video') }}">Random</a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('signup_form') }}">Sign Up</a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('login_form') }}">Login</a></li>
        </ul>
        {% endif %}
        {% if logged_in %}
        <ul class="nav navbar-nav navbar-right">
-         <li><a style="color: #16A085;" href="{{ url_for('random_video') }}"><span class="sp glyphicon glyphicon-random"></span>  Random</a></li>
-         <li><a style="color: #16A085;" href="{{ url_for('upload_form') }}"><span class="sp glyphicon glyphicon-upload"></span> Upload</a></li>
-         <li><a style="color: #16A085;" href="{{ url_for('logout_user') }}"><span class="sp glyphicon glyphicon-log-out"></span> Logout</a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('random_video') }}">Random</a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('upload_form') }}">Upload</a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('logout_user') }}">Logout</a></li>
        </ul>
        {% endif %}
      </div>
