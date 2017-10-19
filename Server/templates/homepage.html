@@ -19,20 +19,19 @@
           </div>
           <button type="submit" class="bt btn btn-default">Submit</button>
        </form>
-       {% if not logged_in %}
        <ul class="nav navbar-nav navbar-right">
          <li><a style="color: #16A085;" href="{{ url_for('random_video') }}">Random</a></li>
+       {% if not logged_in %}
          <li><a style="color: #16A085;" href="{{ url_for('signup_form') }}">Sign Up</a></li>
          <li><a style="color: #16A085;" href="{{ url_for('login_form') }}">Login</a></li>
-       </ul>
        {% endif %}
        {% if logged_in %}
-       <ul class="nav navbar-nav navbar-right">
-         <li><a style="color: #16A085;" href="{{ url_for('random_video') }}">Random</a></li>
          <li><a style="color: #16A085;" href="{{ url_for('upload_form') }}">Upload</a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('my_videos') }}">My videos</a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('watched_videos') }}">Watched</a></li>
          <li><a style="color: #16A085;" href="{{ url_for('logout_user') }}">Logout</a></li>
-       </ul>
        {% endif %}
+     </ul>
      </div>
     </nav>
     <br><br><br>
