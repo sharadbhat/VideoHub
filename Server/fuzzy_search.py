@@ -3,7 +3,7 @@ import pymysql
 
 
 def fuzzy(search_key):
-    db = pymysql.connect(host="localhost", user="root", passwd="shamanmb", db="video")
+    db = pymysql.connect(host="localhost", user="root", passwd="*********", db="video")
     cur = db.cursor()
 
     cur.execute("SELECT video_ID, video_title FROM videos")
