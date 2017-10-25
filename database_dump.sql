@@ -47,6 +47,32 @@ LOCK TABLES `admins` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `favourites`
+--
+
+DROP TABLE IF EXISTS `favourites`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `favourites` (
+  `username` varchar(20) NOT NULL,
+  `video_ID` varchar(50) NOT NULL,
+  PRIMARY KEY (`username`,`video_ID`),
+  KEY `video_ID` (`video_ID`),
+  CONSTRAINT `favourites_ibfk_1` FOREIGN KEY (`username`) REFERENCES `users` (`username`) ON DELETE CASCADE,
+  CONSTRAINT `favourites_ibfk_2` FOREIGN KEY (`video_ID`) REFERENCES `videos` (`video_ID`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `favourites`
+--
+
+LOCK TABLES `favourites` WRITE;
+/*!40000 ALTER TABLE `favourites` DISABLE KEYS */;
+/*!40000 ALTER TABLE `favourites` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `flags`
 --
 
@@ -133,8 +159,6 @@ CREATE TABLE `videos` (
   `video_title` varchar(200) DEFAULT NULL,
   `uploader` varchar(20) DEFAULT NULL,
   `view_count` varchar(10) DEFAULT NULL,
-  `upvotes` varchar(10) DEFAULT NULL,
-  `downvotes` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`video_ID`),
   KEY `uploader` (`uploader`),
   CONSTRAINT `videos_ibfk_1` FOREIGN KEY (`uploader`) REFERENCES `users` (`username`) ON DELETE CASCADE
@@ -160,6 +184,7 @@ DROP TABLE IF EXISTS `watched`;
 CREATE TABLE `watched` (
   `video_ID` varchar(50) NOT NULL,
   `username` varchar(20) NOT NULL,
+  `count` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`video_ID`,`username`),
   KEY `username` (`username`),
   CONSTRAINT `watched_ibfk_1` FOREIGN KEY (`video_ID`) REFERENCES `videos` (`video_ID`) ON DELETE CASCADE,
@@ -185,4 +210,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-10-16  1:53:15
+-- Dump completed on 2017-10-25 23:06:17
