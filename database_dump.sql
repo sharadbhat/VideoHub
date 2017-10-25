@@ -99,32 +99,6 @@ LOCK TABLES `flags` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `ratings`
---
-
-DROP TABLE IF EXISTS `ratings`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `ratings` (
-  `video_ID` varchar(50) NOT NULL,
-  `rater_username` varchar(20) NOT NULL,
-  PRIMARY KEY (`video_ID`,`rater_username`),
-  KEY `rater_username` (`rater_username`),
-  CONSTRAINT `ratings_ibfk_1` FOREIGN KEY (`video_ID`) REFERENCES `videos` (`video_ID`) ON DELETE CASCADE,
-  CONSTRAINT `ratings_ibfk_2` FOREIGN KEY (`rater_username`) REFERENCES `users` (`username`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `ratings`
---
-
-LOCK TABLES `ratings` WRITE;
-/*!40000 ALTER TABLE `ratings` DISABLE KEYS */;
-/*!40000 ALTER TABLE `ratings` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `users`
 --
 
@@ -210,4 +184,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-10-25 23:06:17
+-- Dump completed on 2017-10-25 23:15:28
