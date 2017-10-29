@@ -1,2 +1,2 @@
 # Video-Sharing-Platform
-A rough replica of YouTube with Flask and MySQL
+A rough client-server architecture replica of YouTube with Flask and MySQL
