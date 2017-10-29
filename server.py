@@ -275,7 +275,24 @@ def list_of_videos():
 @app.route("/list-of-users", methods = ['GET'])
 def list_of_users():
     if request.method == 'GET':
-        return str(db.list_of_users())
+        return (db.list_of_users())
+
+@app.route("/admin-delete-usr/<username>", methods = ['POST'])
+def admin_delete_user():
+    if request.method == 'POST':
+	db.delete_user(username)
+	return 1
+
+@app.route("/view-fl", methods = ['GET'])
+def view_flagged():
+    if request.method == 'GET':
+	return str(db.list_of_flagged())
+
+@app.route("/delete-video/<video_ID>", methods = ['POST'])
+def del_video():
+    if request.method == 'POST':
+	db.delete_video(video_ID)
+	return ''
 	
 	   
 if __name__ == '__main__':

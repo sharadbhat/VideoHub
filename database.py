@@ -213,4 +213,16 @@ class Database:
 	    usernames.append(name[0])
 	return usernames
 
+    def list_of_flagged(self):
+	"""
+	- Returns the list of all the flagged videos.
+	"""
+	self.cur.execute("Select video_ID from flags")
+	flagged_videos = []
+	for video in self.cur.fetchall():
+	    flagged_videos.append(video[0])
+	return flagged_videos
+
+
+
 

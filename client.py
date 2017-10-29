@@ -432,7 +432,14 @@ def admin_delete_video():
 		list_html = (requests.get(url="http://127.0.0.1:8080/html/{}".format('list.html')).content).decode("utf-8")
 		return render_template_string(list_html, lista = list_of_videos)
 		#return render_template_string(list_of_videos)
-    return ''	    	
+    return ''
+    """
+    In POST request
+	- Deletes the selected video
+    """		    	
+    if request.method == 'POST':
+	#Get video_id here
+	requests.post(url="http://127.0.0.1:8080/delete-video", data = {'video_ID' : video_ID})
 
 @app.route("/admin-delete-user", methods = ['GET', 'POST'])
 def admin_del_user():
@@ -446,6 +453,33 @@ def admin_del_user():
 	   if is_admin == "True":
 		return ''	
     return ''		
+    """
+    In POST request
+	- Deletes the selected user.
+    """
+    if request.method == 'POST':
+       	#Get the username here
+	requests.post(url="http://127.0.0.1:8080/admin-delete-usr", data = {'username': username})
+
+@app.route("/view-flagged-videos", methods = ['GET', 'POST']) #Only GET here? or Both?
+def view_fl_vid():
+    """
+    In GET request
+	- Displays the list of flagged videos.
+    """
+    if request.method == 'GET':
+	if 'user' in session:
+	    is_admin = (requests.post(url="http://127.0.0.1:8080/is-admin", data = {'username' : session['user']}).content).decode("utf-8")
+	    if is_admin == "True":
+		flagged = (requests.get(url="http://127.0.0.1:8080/view-fl").content).decode("utf-8")
+		flagged_ids = {}
+		flagged = ast.literal_eval(flagged)
+		for ID in flagged:
+		    #Display here
+		    return ''
+    return ''
+		
+
 
 if __name__ == "__main__":
     app.run(port=5000, threaded=True, debug=True)
