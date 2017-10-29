@@ -26,6 +26,8 @@
          <li><a style="color: #16A085;" href="{{ url_for('login_form') }}">Login</a></li>
        {% endif %}
        {% if logged_in %}
+         <li><a style="color: #16A085;" href="{{ url_for('dashboard') }}">Dashboard</a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('favourites') }}">Favourites</a></li>
          <li><a style="color: #16A085;" href="{{ url_for('upload_form') }}">Upload</a></li>
          <li><a style="color: #16A085;" href="{{ url_for('my_videos') }}">My videos</a></li>
          <li><a style="color: #16A085;" href="{{ url_for('watched_videos') }}">Watched</a></li>
@@ -41,6 +43,7 @@
     <h1 style="color:#16A085; text-align:center;">The user hasn't uploaded anything yet</h1>
     {% endif %}
     <br>
+    {% if user_videos %}
     <h1 style="color:#16A085; text-align:center;">Videos uploaded by {{ username }}</h1>
     <br><br><br>
     {% for i in user_videos %}
@@ -74,6 +77,7 @@
       <hr>
     </div>
     {% endfor %}
+    {% endif %}
     </div>
   </body>
 </html>

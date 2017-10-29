@@ -104,9 +104,7 @@ class Database:
         """
         try:
             view_count = 0
-            upvotes = 0
-            downvotes = 0
-            self.cur.execute("INSERT INTO videos VALUES(\"{}\", \"{}\", \"{}\", {}, {}, {})".format(video_ID, title, username, view_count, upvotes, downvotes))
+            self.cur.execute("INSERT INTO videos VALUES(\"{}\", \"{}\", \"{}\", {})".format(video_ID, title, username, view_count))
             self.db.commit()
         except:
             self.db.rollback()
@@ -138,9 +136,12 @@ class Database:
         """
         try:
             done = self.cur.execute("SELECT * FROM watched WHERE username = \"{}\" AND video_ID = \"{}\"".format(username, video_ID))
+            if done == 1: # If the query was successful, one row exists
+                self.cur.execute("UPDATE watched SET count =  count + 1 WHERE username = \"{}\" AND video_ID = \"{}\"".format(username, video_ID))
             if done == 0: # If the query was unsuccessful, row does not exist.
-                self.cur.execute("INSERT INTO watched VALUES(\"{}\", \"{}\")".format(video_ID, username))
-                self.db.commit()
+                count = 1
+                self.cur.execute("INSERT INTO watched VALUES(\"{}\", \"{}\", {})".format(video_ID, username, count))
+            self.db.commit()
         except:
             self.db.rollback()
 
@@ -203,7 +204,7 @@ class Database:
 
     def get_uploaded(self, username): # WORKS
         """
-        - Returns a list of all videos uplaoded by the user with the corresponding username.
+        - Returns a list of all videos uploaded by the user with the corresponding username.
         """
         self.cur.execute("SELECT video_ID FROM videos WHERE uploader = \"{}\"".format(username))
         uploaded_video_IDs = []
@@ -220,3 +221,154 @@ class Database:
             return True
         else:
             return False
+
+    def get_five_random_IDs(self):
+        """
+        - Returns a maximum of 5 random video IDS from the VIDEOS table.
+        """
+        self.cur.execute("SELECT video_ID FROM videos ORDER BY RAND() LIMIT 5")
+        IDs = []
+        for ID in self.cur.fetchall():
+            IDs.append(ID[0])
+        return IDs
+
+    def flag_ID(self, username, video_ID):
+        """
+        - Adds the video ID to the FLAGS table.
+        """
+        done = self.cur.execute("SELECT video_ID from flags WHERE video_ID = \"{}\"".format(video_ID))
+        if done == 0: # Not yet flagged by any user.
+            try:
+                self.cur.execute("INSERT INTO flags VALUES(\"{}\", \"{}\")".format(video_ID, username))
+                self.db.commit()
+            except:
+                self.db.rollback()
+
+    def add_admin(self, username, password):
+        """
+        - Adds the new administrator to the ADMINS table.
+        """
+        password_hash = generate_password_hash(password) # Generates a SHA256 hash.
+        try:
+            self.cur.execute("INSERT INTO admins VALUES(\"{}\", \"{}\")".format(username, password_hash))
+            self.db.commit()
+        except:
+            self.db.rollback()
+
+    def get_flagger(self, video_ID):
+        """
+        - Returns username of flagger of the video ID.
+        """
+        self.cur.execute("SELECT username FROM flags WHERE video_ID = \"{}\"".format(video_ID))
+        return self.cur.fetchone()[0]
+
+    def get_flagged(self):
+        """
+        - Returns a list of flagged videos from FLAGS table.
+        """
+        self.cur.execute("SELECT video_ID FROM flags")
+        flagged_IDs = []
+        for ID in self.cur.fetchall():
+            flagged_IDs.append(ID[0])
+        return flagged_IDs
+
+    def user_list(self):
+        """
+        - Returns a list of users in the USERS table.
+        """
+        self.cur.execute("SELECT username FROM users")
+        users = []
+        for username in self.cur.fetchall():
+            users.append(username[0])
+        return users
+
+    def get_video_num(self, username):
+        """
+        - Returns the number of videos uploaded by the username.
+        """
+        done = self.cur.execute("SELECT video_ID FROM videos where uploader = \"{}\"".format(username))
+        return done
+
+    def get_flagged_num(self, username):
+        """
+        - Returns number of videos of user flagged by other users.
+        """
+        done = self.cur.execute("SELECT flags.video_ID FROM videos,flags WHERE videos.video_ID = flags.video_ID AND videos.uploader = \"{}\"".format(username))
+        return done
+
+    def get_user_count(self):
+        """
+        - Returns number of users in the USERS table.
+        """
+        done = self.cur.execute("SELECT username FROM users")
+        return done
+
+    def get_video_count(self):
+        """
+        - Returns number of videos in the VIDEOS table.
+        """
+        done = self.cur.execute("SELECT video_ID FROM videos")
+        return done
+
+    def get_total_view_count(self):
+        """
+        - Returns number of views on all videos in the VIDEOS table.
+        """
+        done = self.cur.execute("SELECT CAST(SUM(view_count) AS DECIMAL(10, 0)) FROM videos")
+        count = self.cur.fetchone()[0]
+        return count
+
+    def get_flag_count(self):
+        """
+        - Returns number of flagged videos in the VIDEOS table.
+        """
+        done = self.cur.execute("SELECT video_ID FROM flags")
+        return done
+
+    def get_user_video_count(self, username):
+        """
+        - Returns number of videos uploaded by the user from VIDEOS table.
+        """
+        done = self.cur.execute("SELECT video_ID FROM videos WHERE uploader = \"{}\"".format(username))
+        return done
+
+    def get_user_view_count(self, username):
+        """
+        - Returns number of views on all videos uploaded by the user from VIDEOS table.
+        """
+        self.cur.execute("SELECT CAST(SUM(view_count) AS DECIMAL(10, 0)) FROM videos WHERE uploader = \"{}\"".format(username))
+        return self.cur.fetchone()[0]
+
+    def get_best_video_ID(self, username):
+        """
+        - Returns the video ID of the video uploaded by the user with most views.
+        """
+        self.cur.execute("SELECT video_ID FROM videos WHERE uploader = \"{}\" ORDER BY view_count DESC".format(username))
+        return self.cur.fetchone()[0]
+
+    def get_fav_video_ID(self, username):
+        """
+        - Returns the video ID of the user's favourite video.
+        """
+        self.cur.execute("SELECT video_ID FROM watched WHERE username = \"{}\" ORDER BY CAST(count as decimal) DESC".format(username))
+        return self.cur.fetchone()[0]
+
+    def get_favourites(self, username):
+        """
+        - Returns list of videos favourited by the user from FAVOURITES table.
+        """
+        self.cur.execute("SELECT video_ID FROM favourites WHERE username = \"{}\"".format(username))
+        favourites = []
+        for ID in self.cur.fetchall():
+            favourites.append(ID[0])
+        return favourites
+
+    def delete_flag(self, video_ID):
+        """
+        - Deletes the video from FLAGS table.
+        """
+        try:
+            self.cur.execute("DELETE FROM flags WHERE video_ID = \"{}\"".format(video_ID))
+            self.db.commit()
+        except:
+            self.db.rollback() 

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="http://127.0.0.1:8080/css/bootstrap-min-337.css">
+    <link rel="stylesheet" href="http://127.0.0.1:8080/css/video.css">
+    <link rel="stylesheet" href="http://127.0.0.1:8080/css/home.css">
+    <link rel="icon" href="http://127.0.0.1:8080/favicon.png" type="image/png">
+  </head>
+  <body class="back">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+     <div class="container-fluid">
+       <div class="navbar-header">
+         <a style="color: #16A085;" class="navbar-brand" href="{{ url_for('start') }}">VideoHub</a>
+       </div>
+       <ul class="nav navbar-nav navbar-right">
+         <li><a style="color: #16A085;" href="{{ url_for('dashboard') }}">Dashboard</a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('add_admin') }}">Add Administrator</a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('admin_list_users') }}">User List</a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('logout_user') }}">Logout</a></li>
+     </ul>
+     </div>
+    </nav>
+    <br><br><br>
+    <h1 align="center" class="heading1">{{ title }}</h1>
+    <video class="center" controls autoplay style="position:center;">
+      <source src="http://127.0.0.1:8080/video/{{ video_ID }}" type="video/mp4">
+      Your broswer doesn't support this format.
+    </video>
+    <br>
+    <p style="text-align:center; color:#FFFFFF; font-size:22px;">Uploaded by <a style="color:#16A085; font-size:22px; text-decoration:none;" href="/user/{{ uploader }}">{{ uploader }}</a></p>
+    <br>
+    {% if views == "1" %}
+    <p style="text-align:center; color:#FFFFFF; font-size:22px;">{{ views }} view</p>
+    {% endif %}
+    {% if views != "1" %}
+    <p style="text-align:center; color:#FFFFFF; font-size:22px;">{{ views }} views</p>
+    {% endif %}
+    <br>
+    <div style="text-align: center;">
+      <a style="font-size: 18px; color:#16A085; text-decoration: none;" href="{{ url_for('admin_delete_video', video_ID = video_ID) }}">Delete video</a><br><br>
+      <a style="font-size: 18px; color:#16A085; text-decoration: none;" href="{{ url_for('admin_remove_flag', v = video_ID) }}">Remove flag</a><br><br><br>
+    </div>
+  </body>
+</html>

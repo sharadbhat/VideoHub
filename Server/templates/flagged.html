@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>{{ search }} - VideoHub</title>
+    <title>Flagged Videos</title>
     <link rel="stylesheet" href="http://127.0.0.1:8080/css/bootstrap-min-337.css">
     <link rel="stylesheet" href="http://127.0.0.1:8080/css/home.css">
     <link rel="icon" href="http://127.0.0.1:8080/favicon.png" type="image/png">
@@ -13,34 +13,24 @@
        <div class="navbar-header">
          <a style="color: #16A085;" class="navbar-brand" href="{{ url_for('start') }}">VideoHub</a>
        </div>
-       <form class="ml navbar-form navbar-left" action="search" method="post">
-          <div class="form-group">
-            <input style="width:500px;" name="search" type="text" class="form-control" placeholder="Search" value="{{ search }}">
-          </div>
-          <button type="submit" class="bt btn btn-default">Submit</button>
-       </form>
        <ul class="nav navbar-nav navbar-right">
-         <li><a style="color: #16A085;" href="{{ url_for('random_video') }}">Random</a></li>
-       {% if not logged_in %}
-         <li><a style="color: #16A085;" href="{{ url_for('signup_form') }}">Sign Up</a></li>
-         <li><a style="color: #16A085;" href="{{ url_for('login_form') }}">Login</a></li>
-       {% endif %}
-       {% if logged_in %}
          <li><a style="color: #16A085;" href="{{ url_for('dashboard') }}">Dashboard</a></li>
-         <li><a style="color: #16A085;" href="{{ url_for('favourites') }}">Favourites</a></li>
-         <li><a style="color: #16A085;" href="{{ url_for('upload_form') }}">Upload</a></li>
-         <li><a style="color: #16A085;" href="{{ url_for('my_videos') }}">My videos</a></li>
-         <li><a style="color: #16A085;" href="{{ url_for('watched_videos') }}">Watched</a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('add_admin') }}">Add Administrator</a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('admin_list_users') }}">User List</a></li>
          <li><a style="color: #16A085;" href="{{ url_for('logout_user') }}">Logout</a></li>
-       {% endif %}
      </ul>
      </div>
     </nav>
     <br><br><br>
-    <h2 style="color:#16A085; text-align:center;">Search results for "{{ search }}"</h2>
+    {% if not flagged_videos %}
+    <br><br><br><br><br>
+    <h1 style="color:#16A085; text-align:center;">There are no flagged videos</h1>
+    {% endif %}
+    {% if flagged_videos %}
+    <h2 style="color:#16A085; text-align:center;">List of flagged videos</h2>
     <br><br>
     <div class="container">
-    {% for i in results %}
+    {% for i in flagged_videos %}
      <div class="row">
        <div class="row">
            <div class="col-xs-12 col-sm-3 col-md-3">
@@ -48,27 +38,31 @@
                  <img height="152" width="270" src="http://127.0.0.1:8080/image/{{ i }}" class="img-responsive">
                </a>
            </div>
-           <h4><a style="color:#16A085;text-decoration:none;" href="{{ url_for('watch_video', v = i) }}">{{ results[i][0] }}</a></h4>
+           <h4><a style="color:#16A085;text-decoration:none;" href="{{ url_for('admin_review_video', v = i) }}">{{ flagged_videos[i][0] }}</a></h4>
            <div class="col-xs-12 col-sm-9 col-md-9">
                <div class="list-group">
                    <div class="list-group-item">
                        <div class="row-content">
                          <div class="list-group-item-heading">
                              <p style="color:#FFFFFF;">
-                                 <small>Uploaded by <a style="color:#16A085;text-decoration:none;" href="/user/{{ results[i][2] }}">{{ results[i][2] }}</a></small>
+                                 <small>Uploaded by {{ flagged_videos[i][2] }}</small>
+                             </p>
+                             <p style="color:#FFFFFF;">
+                                 <small>Flagged by {{ flagged_videos[i][3] }}</small>
                              </p>
                          </div>
                          <div class="list-group-item-heading">
                              <p style="color:#FFFFFF;">
-                               {% if results[i][1] == "1" %}
-                               <small>{{ results[i][1] }} view</small>
+                               {% if flagged_videos[i][1] == "1" %}
+                               <small>1 view</small>
                                {% endif %}
-                               {% if results[i][1] != "1" %}
-                               <small>{{ results[i][1] }} views</small>
+                               {% if flagged_videos[i][1] != "1" %}
+                               <small>{{ flagged_videos[i][1] }} views</small>
                                {% endif %}
                              </p>
                          </div>
                        </div>
+                       <a style="color:#16A085;text-decoration:none;" href="{{ url_for('admin_delete_video', video_ID = i) }}">Delete video</a>
                    </div>
                </div>
            </div>
@@ -77,5 +71,6 @@
     </div>
     {% endfor %}
     </div>
+    {% endif %}
   </body>
 </html>

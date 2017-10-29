@@ -185,6 +185,9 @@ def return_is_valid_user():
 
 @app.route("/is-valid-username/<username>", methods = ["GET"])
 def return_is_valid_username(username):
+    """
+    - Checks if the user is a valid user.
+    """
     if request.method == 'GET':
         return str(db.is_valid_username(username))
 
@@ -192,6 +195,9 @@ def return_is_valid_username(username):
 
 @app.route("/add-user", methods = ['POST'])
 def add_user():
+    """
+    - Adds the new user credentials to the database.
+    """
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
@@ -202,6 +208,9 @@ def add_user():
 
 @app.route("/update-password", methods = ['POST'])
 def update_password():
+    """
+    - Updates the password of the user.
+    """
     if request.method == 'POST':
         username = request.form['username']
         old_password = request.form['old_password']
@@ -216,6 +225,9 @@ def update_password():
 
 @app.route("/delete-user", methods = ['POST'])
 def delete_user():
+    """
+    - Deletes the user's account.
+    """
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
@@ -227,16 +239,21 @@ def delete_user():
 
 
 
-@app.route("/is-admin", methods = ['POST'])
-def return_is_admin():
-    if request.method == 'POST':
-        username = request.form['username']
+@app.route("/is-admin/<username>", methods = ['GET'])
+def return_is_admin(username):
+    """
+    - Checks if the user is an administrator.
+    """
+    if request.method == 'GET':
         return str(db.is_admin(username))
 
 
 
 @app.route("/upload", methods = ['POST'])
 def upload_video():
+    """
+    - Uploads the video.
+    """
     if request.method == 'POST':
         video_ID = str(base64.b64encode(str.encode(str(uuid.uuid4().fields[5]))))[2:-1]
         username = request.form['username']
@@ -252,6 +269,9 @@ def upload_video():
 
 @app.route("/watched/<username>", methods = ['GET'])
 def return_watched(username):
+    """
+    - Returns a list of video IDs watched by the user.
+    """
     if request.method == 'GET':
         return str(db.get_watched(username))
 
@@ -259,6 +279,9 @@ def return_watched(username):
 
 @app.route("/uploaded/<username>", methods = ['GET'])
 def return_uploaded(username):
+    """
+    - Returns a list of video IDs uploaded by the user.
+    """
     if request.method == 'GET':
         return str(db.get_uploaded(username))
 
@@ -266,6 +289,9 @@ def return_uploaded(username):
 
 @app.route("/is-user-present/<username>", methods = ['GET'])
 def return_user_availability(username):
+    """
+    - Checks if the user is present in the database.
+    """
     if request.method == 'GET':
         return str(db.is_user_present(username))
 
@@ -273,6 +299,9 @@ def return_user_availability(username):
 
 @app.route("/delete-video", methods = ['POST'])
 def delete_video():
+    """
+    - If the user is the uploader of the video, it is deleted.
+    """
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
@@ -282,6 +311,246 @@ def delete_video():
             return str(True)
         else:
             return str(False)
+
+
+
+@app.route("/get-random/<video_ID>", methods = ['GET'])
+def return_random_video_IDs(video_ID):
+    """
+    - Returns 5 random video IDs.
+    - If the list contains the current video ID, it is removed.
+    """
+    if request.method == 'GET':
+        random = db.get_five_random_IDs()
+        if video_ID in random:
+            random.remove(video_ID)
+        return str(random)
+
+
+
+@app.route("/flag", methods = ['POST'])
+def flag_video_ID():
+    """
+    - Gets the username and the video ID to be flagged.
+    - Flags the video is the FLAGS table.
+    """
+    if request.method == 'POST':
+        username = request.form['username']
+        video_ID = request.form['video_ID']
+        db.flag_ID(username, video_ID)
+        return "1"
+
+
+
+@app.route("/user-video-count/<username>", methods = ['GET'])
+def return_user_video_count(username):
+    """
+    In GET request
+        - Returns number of videos uploaded by the user.
+    """
+    if request.method == 'GET':
+        return str(db.get_user_video_count(username))
+
+
+
+@app.route("/user-view-count/<username>", methods = ['GET'])
+def return_user_view_count(username):
+    """
+    In GET request
+        - Returns number of views on all videos uploaded by the user.
+    """
+    if request.method == 'GET':
+        return str(db.get_user_view_count(username))
+
+
+@app.route("/user-best-video/<username>", methods = ['GET'])
+def return_user_best_video(username):
+    """
+    In GET request
+        - Returns video ID of the video uploaded by the user with the highest view count.
+    """
+    if request.method == 'GET':
+        return str(db.get_best_video_ID(username))
+
+
+
+@app.route("/user-fav-video/<username>", methods = ['GET'])
+def return_user_fav_video(username):
+    """
+    In GET request
+        - Returns video ID of the video uploaded by the user with the highest view count.
+    """
+    if request.method == 'GET':
+        return str(db.get_fav_video_ID(username))
+
+
+
+# ADMIN PART
+
+@app.route("/add-admin", methods = ['POST'])
+def add_admin():
+    """
+    In POST request
+        - Adds the new administrator to the ADMINS table.
+    """
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        db.add_admin(username, password)
+        return "1"
+
+
+
+@app.route("/flagger/<video_ID>", methods = ['GET'])
+def return_flagger(video_ID):
+    """
+    In GET request
+        - Returns the username of the user that flagged the video with the corresponding video ID from the FLAGS table.
+    """
+    if request.method == 'GET':
+        return str(db.get_flagger(video_ID))
+
+
+
+@app.route("/flagged", methods = ['GET'])
+def return_flagged():
+    """
+    In GET request
+        - Returns a list of flagged videos.
+    """
+    if request.method == 'GET':
+        return str(db.get_flagged())
+
+
+
+@app.route("/admin-delete-video", methods = ['POST'])
+def admin_delete_video():
+    """
+    In POST request
+        - Deletes the video from VIDEOS table.
+    """
+    if request.method == 'POST':
+        video_ID = request.form['video_ID']
+        print(video_ID)
+        db.delete_video(video_ID)
+        return "1"
+
+
+
+@app.route("/user-list", methods = ['GET'])
+def return_users_list():
+    """
+    In GET request
+        - Returns a list of users in the database.
+    """
+    if request.method == 'GET':
+        return str(db.user_list())
+
+
+
+@app.route("/num-videos/<username>", methods = ['GET'])
+def return_user_video_number(username):
+    """
+    In GET request
+        - Returns the number of videos uploaded by the user with the corresponding username.
+    """
+    if request.method == 'GET':
+        return str(db.get_video_num(username))
+
+
+
+@app.route("/num-flags/<username>", methods = ['GET'])
+def return_user_flagged_number(username):
+    """
+    In GET request
+        - Returns the number of videos uploaded by the user that have been flagged by other users.
+    """
+    if request.method == 'GET':
+        return str(db.get_flagged_num(username))
+
+
+
+@app.route("/admin-delete-user", methods = ['POST'])
+def admin_delete_user():
+    """
+    In POST request
+        - Delete the user with the corresponding username.
+    """
+    if request.method == 'POST':
+        username = request.form['username']
+        db.delete_user(username)
+        return "1"
+
+
+
+@app.route("/user-count", methods = ['GET'])
+def return_user_count():
+    """
+    In GET request
+        - Returns number of users in the USERS table.
+    """
+    if request.method == 'GET':
+        return str(db.get_user_count())
+
+
+
+@app.route("/video-count", methods = ['GET'])
+def return_video_count():
+    """
+    In GET request
+        - Returns number of videos in the VIDEOS table.
+    """
+    if request.method == 'GET':
+        return str(db.get_video_count())
+
+
+
+@app.route("/view-count", methods = ['GET'])
+def return_view_count():
+    """
+    In GET request
+        - Returns number of views on all videos in the VIDEOS table.
+    """
+    if request.method == 'GET':
+        return str(db.get_total_view_count())
+
+
+
+@app.route("/flag-count", methods = ['GET'])
+def return_flag_count():
+    """
+    In GET request
+        - Returns number of flagged videos in the VIDEOS table.
+    """
+    if request.method == 'GET':
+        return str(db.get_flag_count())
+
+
+
+@app.route("/favourites/<username>", methods = ['GET'])
+def return_favourites(username):
+    """
+    In GET request
+        - Returns a list of videos favourited by the user.
+    """
+    if request.method == 'GET':
+        return str(db.get_favourites(username))
+
+
+
+@app.route("/remove-flag", methods = ['POST'])
+def remove_flag():
+    """
+    In POST request
+        - Removes the flag for the video with the corresponding video ID from the FLAGS table.
+    """
+    if request.method == 'POST':
+        video_ID = request.form['video_ID']
+        print(video_ID)
+        db.delete_flag(video_ID)
+        return "1"
+
+
 
 
 if __name__ == '__main__':

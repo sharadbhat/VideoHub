@@ -2,7 +2,7 @@
 <html >
 <head>
   <meta charset="UTF-8">
-  <title>Delete Video</title>
+  <title>VideoHub</title>
   <link rel="stylesheet" href="http://127.0.0.1:8080/css/reset-min.css">
   <link rel='stylesheet prefetch' href='http://127.0.0.1:8080/css/roboto.css'>
   <link rel='stylesheet prefetch' href='http://127.0.0.1:8080/css/monsterrat.css'>
@@ -15,27 +15,30 @@
 <body>
     <div class="container">
       <div class="info">
-        <h1 style="color:#16A085;">Re-enter password to confirm account deletion</h1>
+        <h1 style="color:#16A085;">VideoHub</h1>
       </div>
     </div>
     <div class="form">
-      <form class="login-form" action="remove" method="post">
-        {% if c_error %}
+      <form class="login-form" action="add-admin" method="post">
+        {% if nameError %}
           <div class="alert">
             <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-            Invalid password
+            Username already present
           </div>
         {% endif %}
-        <input type="text" name="title" value="{{ title }}" readonly>
-        <input type="text" name="video_ID" value="{{ video_ID }}" readonly/>
-        <input id="password" type="password" name="password" placeholder="re-enter password" required autofocus/>
-        <button>confirm</button>
-        <a href="{{ url_for('dashboard') }}">
-          <button onclick="cancel()">cancel</button>
-        </a>
+        {% if passError %}
+        <div class="alert">
+          <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+          Invalid administrator credentials
+        </div>
+        {% endif %}
+        <h3 style="color:#FFFFFF;">Exisiting administrator credentials</h3><br>
+        <input type="password" name="admin_password" placeholder="your password" required autofocus/>
+        <br><h3 style="color:#FFFFFF">New administrator credentials</h3><br>
+        <input type="text" name="new_username" placeholder="new username" required/>
+        <input type="password" name="new_password" placeholder="new password" required/>
+        <button>add administrator</button>
       </form>
     </div>
-    <script src='http://127.0.0.1:8080/js/jquery.js'></script>
-    <script  src="http://127.0.0.1:8080/js/delete.js"></script>
 </body>
 </html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>User List - VideoHub</title>
+  <link rel="stylesheet" href="http://127.0.0.1:8080/css/bootstrap-min-337.css">
+  <link rel="stylesheet" href="http://127.0.0.1:8080/css/user_list.css">
+  <link rel="icon" href="http://127.0.0.1:8080/favicon.png" type="image/png">
+</head>
+
+<body>
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+     <div class="navbar-header">
+       <a style="color: #16A085;" class="navbar-brand" href="{{ url_for('start') }}">VideoHub</a>
+     </div>
+     <ul class="nav navbar-nav navbar-right">
+       <li><a style="color: #16A085;" href="{{ url_for('dashboard') }}">Dashboard</a></li>
+       <li><a style="color: #16A085;" href="{{ url_for('add_admin') }}">Add Administrator</a></li>
+       <li><a style="color: #16A085;" href="{{ url_for('flagged_videos') }}">Flagged Videos</a></li>
+       <li><a style="color: #16A085;" href="{{ url_for('logout_user') }}">Logout</a></li>
+   </ul>
+  </nav>
+  <div id="demo"><br><br>
+  <h1>List of users</h1>
+  <br><br>
+  <div class="table-responsive-vertical shadow-z-1">
+  <table id="table" class="table table-hover">
+      <thead>
+        <tr>
+          <th>Username</th>
+          <th>Number of videos</th>
+          <th>Number of flagged videos</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for username in user_dict %}
+        <tr>
+          <td style="color:#FFFFFF;" data-title="Username">{{ username }}</td>
+          <td style="color:#FFFFFF;" data-title="Number of videos">{{ user_dict[username][0] }}</td>
+          <td style="color:#FFFFFF;" data-title="Number of flagged videos">{{ user_dict[username][1] }}</td>
+          <td style="color:#FFFFFF;" data-title="Delete"><a style="color:#16A085;text-decoration:none;" href="/admin-delete-user/{{ username }}">Delete</a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>
