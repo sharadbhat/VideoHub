@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="http://127.0.0.1:8080/css/bootstrap-min-337.css">
     <link rel="stylesheet" href="http://127.0.0.1:8080/css/user_list.css">
     <link rel="stylesheet" href="http://127.0.0.1:8080/css/home.css">
+    <link rel="stylesheet" href="http://127.0.0.1:8080/css/dashboard.css">
     <link rel="icon" href="http://127.0.0.1:8080/favicon.png" type="image/png">
   </head>
   <body class="back">
@@ -30,6 +31,14 @@
      </ul>
      </div>
     </nav>
+    <br><br><br><br><br>
+    <div class="wrapper">
+    <div style="text-align:center">
+      <a style="text-decoration:none;" href="{{ url_for('password_update_form') }}" class="buttonDash">Change Password</a>
+      <br><br><br><br>
+      <a style="text-decoration:none;" href="{{ url_for('delete_own_account') }}" class="buttonDash">Delete Account</a>
+    </div>
+    </div>
     <br><br><br>
     <h2 style="color:#16A085; text-align:center;">{{ username }}'s statistics</h2>
     <br><br>
