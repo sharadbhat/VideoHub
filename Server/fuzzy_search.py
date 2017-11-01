@@ -1,5 +1,4 @@
 from fuzzywuzzy import process
-import pymysql
 
 
 def fuzzy(search_key, videos, video_titles):
