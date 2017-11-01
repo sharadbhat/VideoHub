@@ -2,17 +2,10 @@ from fuzzywuzzy import process
 import pymysql
 
 
-def fuzzy(search_key):
-    db = pymysql.connect(host="localhost", user="root", passwd="*********", db="video")
-    cur = db.cursor()
-
-    cur.execute("SELECT video_ID, video_title FROM videos")
-    videos = {}
-    video_titles = []
-    for video in cur.fetchall():
-        video_titles.append(video[1])
-        videos.update({video[0] : video[1]})
-
+def fuzzy(search_key, videos, video_titles):
+    """
+    - Returns a list of closest matching video IDs.
+    """
     best_matches = process.extract(search_key, video_titles, limit=10)
     best_match_titles = []
     for match in best_matches:

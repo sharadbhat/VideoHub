@@ -156,7 +156,8 @@ def fuzzy_results(search_key):
     - Returns a list of closest matches for the search key.
     """
     if request.method == 'GET':
-        return str(fuzzy(search_key))
+        video_dict, video_titles = db.video_dict()
+        return str(fuzzy(search_key, video_dict, video_titles))
 
 
 

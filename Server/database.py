@@ -371,4 +371,17 @@ class Database:
             self.cur.execute("DELETE FROM flags WHERE video_ID = \"{}\"".format(video_ID))
             self.db.commit()
         except:
-            self.db.rollback() 
+            self.db.rollback()
+
+    def video_dict(self):
+        """
+        - Returns a dictionary of video IDs, title and a list of video titles.
+        - For Fuzzy Search.
+        """
+        self.cur.execute("SELECT video_ID, video_title FROM videos")
+        videos = {}
+        video_titles = []
+        for video in self.cur.fetchall():
+            video_titles.append(video[1])
+            videos.update({video[0] : video[1]})
+        return videos, video_titles
