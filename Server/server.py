@@ -256,7 +256,7 @@ def upload_video():
     - Uploads the video.
     """
     if request.method == 'POST':
-        video_ID = str(base64.b64encode(str.encode(str(uuid.uuid4().fields[5]))))[2:-1]
+        video_ID = str(base64.urlsafe_b64encode(str.encode(str(uuid.uuid4().fields[5]))))[2:-1]
         username = request.form['username']
         title = request.form['title']
         file = request.form['file']
