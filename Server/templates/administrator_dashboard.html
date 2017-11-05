@@ -29,7 +29,7 @@
         <tbody>
           <tr>
             <td style="color:#FFFFFF;" data-title="view_count">Total number of users registered</td>
-            <td style="color:#FFFFFF;" data-title="v_count">{{ user_count }}</td>
+            <td data-title="v_count"><a style="color:#16A085; text-decoration:none;" href="{{ url_for('admin_list_users') }}">{{ user_count }}</a></td>
           </tr>
           <tr>
             <td style="color:#FFFFFF;" data-title="video_count">Total number of videos uploaded</td>
@@ -41,7 +41,7 @@
           </tr>
           <tr>
             <td style="color:#FFFFFF;" data-title="view_count">Total number of flagged videos</td>
-            <td style="color:#FFFFFF;" data-title="v_count">{{ flag_count }}</td>
+            <td data-title="v_count"><a style="color:#16A085; text-decoration:none;" href="{{ url_for('flagged_videos') }}">{{ flag_count }}</a></td>
           </tr>
         </tbody>
       </table>
