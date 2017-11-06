@@ -46,11 +46,13 @@
     <br>
     <p style="text-align:center; color:#FFFFFF; font-size:22px;">Uploaded by <a style="color:#16A085; font-size:22px; text-decoration:none;" href="/user/{{ uploader }}">{{ uploader }}</a></p>
     <br>
+    <p style="text-align:center; color:#FFFFFF; font-size:19px;">Uploaded on {{ vid_upload_date }}</p>
+    <br>
     {% if views == "1" %}
-    <p style="text-align:center; color:#FFFFFF; font-size:22px;">{{ views }} view</p>
+    <p style="text-align:center; color:#FFFFFF; font-size:19px;">{{ views }} view</p>
     {% endif %}
     {% if views != "1" %}
-    <p style="text-align:center; color:#FFFFFF; font-size:22px;">{{ views }} views</p>
+    <p style="text-align:center; color:#FFFFFF; font-size:19px;">{{ views }} views</p>
     {% endif %}
     {% if logged_in %}
     {% if not username == uploader %}
