@@ -3,6 +3,7 @@ import database
 import base64
 import os
 import uuid
+import calendar
 from fuzzy_search import fuzzy
 from image_capture import save_image
 
@@ -112,6 +113,20 @@ def return_uploader(video_ID):
     """
     if request.method == 'GET':
         return db.get_video_uploader(video_ID)
+
+
+
+@app.route("/upload-date/<video_ID>", methods = ['GET'])
+def return_date(video_ID):
+    """
+    - Returns the upload date of the video with the corresponding video ID.
+    """
+    if request.method == 'GET':
+        upload_date = str(db.get_upload_date(video_ID))
+        vid_date = upload_date.split("-")
+        month = calendar.month_abbr[int(vid_date[1])]
+        video_upload_date = "{} {}, {}".format(month, vid_date[2], vid_date[0])
+        return video_upload_date
 
 
 
