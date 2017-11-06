@@ -1,5 +1,6 @@
 import pymysql
 import uuid
+import datetime
 import os
 import base64
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -104,7 +105,8 @@ class Database:
         """
         try:
             view_count = 0
-            self.cur.execute("INSERT INTO videos VALUES(\"{}\", \"{}\", \"{}\", {})".format(video_ID, title, username, view_count))
+            now = datetime.datetime.now()
+            self.cur.execute("INSERT INTO videos VALUES(\"{}\", \"{}\", \"{}\", {}, \"{}/{}/{}\")".format(video_ID, title, username, view_count, now.year, now.month, now.day))
             self.db.commit()
         except:
             self.db.rollback()
@@ -155,6 +157,13 @@ class Database:
             return uploader
         except:
             return "Error getting username"
+
+    def get_upload_date(self, video_ID):
+        """
+        - Returns the date when the video was uploaded from VIDEOS table.
+        """
+        self.cur.execute("SELECT upload_date FROM videos WHERE video_ID = \"{}\"".format(video_ID))
+        return self.cur.fetchone()[0]
 
     def get_random_ID(self): # WORKS
         """
