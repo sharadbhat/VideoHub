@@ -134,6 +134,7 @@ CREATE TABLE `videos` (
   `video_title` varchar(200) DEFAULT NULL,
   `uploader` varchar(20) DEFAULT NULL,
   `view_count` varchar(10) DEFAULT NULL,
+  `upload_date` date DEFAULT NULL,
   PRIMARY KEY (`video_ID`),
   KEY `uploader` (`uploader`),
   CONSTRAINT `videos_ibfk_1` FOREIGN KEY (`uploader`) REFERENCES `users` (`username`) ON DELETE CASCADE
@@ -185,4 +186,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-10-29 21:26:21
+-- Dump completed on 2017-11-06 23:24:16
