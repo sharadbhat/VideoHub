@@ -359,6 +359,7 @@ def watch_video(): #WORKS
         vid_title = ((requests.get(url='http://127.0.0.1:8080/title/{}'.format(video_ID))).content).decode("utf-8") # Done
         vid_uploader = ((requests.get(url='http://127.0.0.1:8080/uploader/{}'.format(video_ID))).content).decode("utf-8") # Done
         vid_views = ((requests.get(url='http://127.0.0.1:8080/views/{}'.format(video_ID))).content).decode("utf-8") # Done
+        vid_upload_date = ((requests.get(url='http://127.0.0.1:8080/upload-date/{}'.format(video_ID))).content).decode("utf-8") # Done
         video_page = ((requests.get(url='http://127.0.0.1:8080/html/{}'.format('video.html'))).content).decode("utf-8") # Done
         random_vids = {}
         random_video_IDs = ((requests.get('http://127.0.0.1:8080/get-random/{}'.format(video_ID))).content).decode("utf-8") # Done
@@ -373,9 +374,9 @@ def watch_video(): #WORKS
             username = session['user']
             requests.post(url='http://127.0.0.1:8080/update-watched', data={'username' : username, 'video_ID' : video_ID}) # Done
             username = session['user']
-            return render_template_string(video_page, random_vids = random_vids, video_ID = video_ID, title = vid_title, uploader = vid_uploader, views = vid_views, logged_in = True, username = username)
+            return render_template_string(video_page, random_vids = random_vids, video_ID = video_ID, title = vid_title, uploader = vid_uploader, views = vid_views, vid_upload_date = vid_upload_date, logged_in = True, username = username)
         else:
-            return render_template_string(video_page, random_vids = random_vids, video_ID = video_ID, title = vid_title, uploader = vid_uploader, views = vid_views)
+            return render_template_string(video_page, random_vids = random_vids, video_ID = video_ID, title = vid_title, uploader = vid_uploader, views = vid_views, vid_upload_date = vid_upload_date)
 
 
 
