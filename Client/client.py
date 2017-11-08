@@ -3,6 +3,7 @@ import requests
 import os
 import ast
 import base64
+from nocache import nocache
 
 #App config
 ALLOWED_EXTENSIONS = set(['mp4'])
@@ -13,6 +14,7 @@ app.secret_key = os.urandom(24)
 
 
 @app.errorhandler(404)
+@nocache
 def error_404(e):
     """
     - Displays the 404 error page.
@@ -23,6 +25,7 @@ def error_404(e):
 
 
 @app.errorhandler(403)
+@nocache
 def error_403(e):
     """
     - Displays the 404 error page.
@@ -33,6 +36,7 @@ def error_403(e):
 
 
 @app.route("/", methods = ['GET'])
+@nocache
 def start(): #WORKS
     """
     - The starting page.
@@ -60,6 +64,7 @@ def start(): #WORKS
 
 
 @app.route("/login", methods = ['POST', 'GET'])
+@nocache
 def login_form(): #WORKS
     """
     In GET request,
@@ -93,6 +98,7 @@ def login_form(): #WORKS
 
 
 @app.route("/signup", methods = ['GET', 'POST'])
+@nocache
 def signup_form(): #WORKS
     """
     In GET request
@@ -125,6 +131,7 @@ def signup_form(): #WORKS
 
 
 @app.route("/change-password", methods = ['GET', 'POST'])
+@nocache
 def password_update_form(): #WORKS
     """
     In GET request
@@ -167,6 +174,7 @@ def password_update_form(): #WORKS
 
 
 @app.route("/delete", methods = ['GET', 'POST'])
+@nocache
 def delete_own_account(): #WORKS
     """
     In GET request
@@ -207,6 +215,7 @@ def delete_own_account(): #WORKS
 
 
 @app.route("/logout", methods = ['GET'])
+@nocache
 def logout_user(): #WORKS
     """
     - Removes user from session.
@@ -218,6 +227,7 @@ def logout_user(): #WORKS
 
 
 @app.route("/dashboard", methods = ['GET'])
+@nocache
 def dashboard(): #WORKS
     """
     - Redirects to login page if not logged in.
@@ -257,6 +267,7 @@ def allowed_file(filename): #WORKS
 
 
 @app.route("/upload", methods = ['GET', 'POST'])
+@nocache
 def upload_form(): #WORKS
     """
     In GET request
@@ -293,6 +304,7 @@ def upload_form(): #WORKS
 
 
 @app.route("/remove", methods = ['GET', 'POST'])
+@nocache
 def delete_own_video():
     """
     In GET request
@@ -339,6 +351,7 @@ def delete_own_video():
 
 
 @app.route("/watch", methods = ['GET'])
+@nocache
 def watch_video(): #WORKS
     """
     In GET request
@@ -381,6 +394,7 @@ def watch_video(): #WORKS
 
 
 @app.route("/search", methods = ['POST'])
+@nocache
 def search_videos():
     """
     In POST request
@@ -397,6 +411,7 @@ def search_videos():
 
 
 @app.route("/results", methods = ['GET'])
+@nocache
 def results():
     """
     In GET request
@@ -427,6 +442,7 @@ def results():
 
 
 @app.route("/random", methods = ['GET'])
+@nocache
 def random_video():
     """
     In GET request
@@ -443,6 +459,7 @@ def random_video():
 
 
 @app.route("/watched", methods = ['GET'])
+@nocache
 def watched_videos():
     """
     In GET request
@@ -469,6 +486,7 @@ def watched_videos():
 
 
 @app.route("/user/<username>", methods = ['GET'])
+@nocache
 def user_videos(username):
     """
     In GET request
@@ -501,6 +519,7 @@ def user_videos(username):
 
 
 @app.route("/my-videos", methods = ['GET'])
+@nocache
 def my_videos():
     """
     In GET request
@@ -526,6 +545,7 @@ def my_videos():
 
 
 @app.route("/flag", methods = ['GET'])
+@nocache
 def flag_video():
     """
     In GET request
@@ -546,6 +566,7 @@ def flag_video():
 
 
 @app.route("/favourites", methods = ['GET'])
+@nocache
 def favourites():
     """
     In GET request
@@ -572,6 +593,7 @@ def favourites():
 # ADMIN PART
 
 @app.route("/add-admin", methods = ['GET', 'POST'])
+@nocache
 def add_admin():
     """
     In GET request
@@ -621,6 +643,7 @@ def add_admin():
 
 
 @app.route("/flagged", methods = ['GET'])
+@nocache
 def flagged_videos():
     """
     In GET request
@@ -649,6 +672,7 @@ def flagged_videos():
 
 
 @app.route("/admin-delete-video", methods = ['GET'])
+@nocache
 def admin_delete_video():
     """
     In GET request
@@ -669,6 +693,7 @@ def admin_delete_video():
 
 
 @app.route("/admin-users", methods = ['GET'])
+@nocache
 def admin_list_users():
     """
     In GET request
@@ -695,6 +720,7 @@ def admin_list_users():
 
 
 @app.route("/admin-delete-user/<username>", methods = ['GET'])
+@nocache
 def admin_delete_user(username):
     """
     In GET request
@@ -714,6 +740,7 @@ def admin_delete_user(username):
 
 
 @app.route("/review", methods = ['GET'])
+@nocache
 def admin_review_video():
     """
     In GET request
@@ -739,6 +766,7 @@ def admin_review_video():
 
 
 @app.route("/admin-remove-flag", methods = ['GET'])
+@nocache
 def admin_remove_flag():
     """
     In GET request
