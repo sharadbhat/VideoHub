@@ -322,6 +322,8 @@ def delete_own_video():
         video_ID = request.args.get('video_ID')
         title = ((requests.get('http://127.0.0.1:8080/title/{}'.format(video_ID))).content).decode("utf-8") # Done
         uploader = ((requests.get('http://127.0.0.1:8080/uploader/{}'.format(video_ID))).content).decode("utf-8") # Done
+        if uploader == 'Error getting username':
+            abort(404)
         username = session['user']
         if username != uploader:
             abort(403)
