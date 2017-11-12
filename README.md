@@ -1,4 +1,5 @@
-# Video-Sharing-Platform
+# VideoHub
+A video sharing platform.
 A rough client-server architecture replica of YouTube with Flask and MySQL.
 
 ###### All CSS files are available offline.
