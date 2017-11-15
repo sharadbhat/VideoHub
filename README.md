@@ -15,14 +15,14 @@ pip install -r requirements.txt
 
 To start server,
 ```bash
-python3 ./server/server.py
+python3 ./Server/server.py
 ```
 
 ### Starting client
 
 To start client,
 ```bash
-python3 ./client/client.py
+python3 ./Client/client.py
 ```
 
 
