@@ -140,6 +140,10 @@ class Database:
             done = self.cur.execute("SELECT * FROM watched WHERE username = \"{}\" AND video_ID = \"{}\"".format(username, video_ID))
             if done == 1: # If the query was successful, one row exists
                 self.cur.execute("UPDATE watched SET count =  count + 1 WHERE username = \"{}\" AND video_ID = \"{}\"".format(username, video_ID))
+                try:
+                    self.cur.execute("CALL add_to_fav(\"{}\", \"{}\")".format(video_ID, username))
+                except:
+                    pass
             if done == 0: # If the query was unsuccessful, row does not exist.
                 count = 1
                 self.cur.execute("INSERT INTO watched VALUES(\"{}\", \"{}\", {})".format(video_ID, username, count))
