@@ -105,8 +105,7 @@ class Database:
         """
         try:
             view_count = 0
-            now = datetime.datetime.now()
-            self.cur.execute("INSERT INTO videos VALUES(\"{}\", \"{}\", \"{}\", {}, \"{}/{}/{}\")".format(video_ID, title, username, view_count, now.year, now.month, now.day))
+            self.cur.execute("INSERT INTO videos VALUES(\"{}\", \"{}\", \"{}\", {}, NULL)".format(video_ID, title, username, view_count))
             self.db.commit()
         except:
             self.db.rollback()
