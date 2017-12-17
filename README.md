@@ -32,4 +32,7 @@ Visit http://127.0.0.1:5000
 
 # Screenshots
 
-![alt text](images/user_list.jpg "Logo Title Text 1")
+## Normal user
+
+#### Homepage
+![Homepage](https://github.com/sharadbhat/VideoHub/blob/master/images/homepage.png "Homepage")
