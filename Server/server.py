@@ -562,7 +562,6 @@ def remove_flag():
     """
     if request.method == 'POST':
         video_ID = request.form['video_ID']
-        print(video_ID)
         db.delete_flag(video_ID)
         return "1"
 
