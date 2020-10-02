@@ -6,6 +6,7 @@ import uuid
 import calendar
 from fuzzy_search import fuzzy
 from image_capture import save_image
+from Flask import render_template
 
 app = Flask(__name__)
 db = database.Database()
