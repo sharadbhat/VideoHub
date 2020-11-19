@@ -103,11 +103,12 @@ def return_video(video_ID):
        </style>
     </head>
     <body>
+        <h2>${headline}</h2>
        <iframe src="https://www.youtube.com/embed/${youtube_id}?autoplay=1" width="853" height="480" frameborder="0" allowfullscreen></iframe></body>""")
     youtube_url='https://www.youtube.com/watch?v='+ video_ID
-#     hed = """<h2><a href="{url}">YouTube video: {id}</a></h2>""".format(url=youtube_url, id=video_ID)
+    hed = """<h2><a href="{url}">YouTube video: {id}</a></h2>""".format(url=youtube_url, id=video_ID)
 #     iframe=ytframe.video(youtube_url)
-    all_html = HTML_TEMPLATE.substitute(youtube_id=video_ID)
+    all_html = HTML_TEMPLATE.substitute(headline=hed,youtube_id=video_ID)
     return all_html
 
 

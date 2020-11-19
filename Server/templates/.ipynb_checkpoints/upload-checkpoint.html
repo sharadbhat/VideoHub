@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Upload</title>
+    <link rel="stylesheet" href="http://127.0.0.1:8080/css/upload.css">
+    <link rel="stylesheet" href="http://127.0.0.1:8080/css/video.css">
+    <link rel="icon" href="http://127.0.0.1:8080/favicon.png" type="image/png">
+</head>
+
+<body>
+  <h4 align="center" class="heading2">Upload video</h4>
+  <form action="upload" method="POST" enctype=multipart/form-data>
+    <input type="file" accept="video/mp4" name=file>
+    <p>Drag your files here or click in this area.</p>
+    <input type="text" name="title" id="title" placeholder="Enter title here" required>
+    <button type="submit">Upload</button>
+  </form>
+  <script src='http://127.0.0.1:8080/js/jquery.js'></script>
+  <script  src="http://127.0.0.1:8080/js/upload.js"></script>
+</body>
+</html>

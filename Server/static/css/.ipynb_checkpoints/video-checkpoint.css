@@ -1,0 +1,47 @@
+.back {
+  background: rgba(0,0,0,0.9);
+}
+
+.center {
+  margin-left: auto;
+  margin-right: auto;
+  width: 1000px;
+  display: block
+}
+
+.heading1 {
+  color:  #16A085;
+  font-family: arial;
+  font-weight: 300;
+  font-size: 40px;
+}
+
+.heading2 {
+  color:  #16A085;
+  font-family: arial;
+  font-weight: 300;
+  font-size: 29px;
+}
+
+.back {
+  background: rgba(0,0,0,0.9);
+}
+
+.ml {
+  margin-left: 20%;
+}
+
+.bt {
+  border-width: 0px;
+  background-color: #16A085;
+}
+
+.btn:hover
+{
+color: #FFFFFF;
+background-color:#0D5B4C;
+}
+
+.sp {
+  color: #16A085;
+}

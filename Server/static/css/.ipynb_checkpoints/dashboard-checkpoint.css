@@ -1,0 +1,28 @@
+body {
+  background: rgba(0,0,0,0.9);
+}
+
+.buttonDash {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  text-decoration: none;
+  padding: 14px 40px;
+  width: 250px;
+  outline: 0;
+  background: #16A085;
+  border: 0;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  color: #FFFFFF;
+  font-size: 20px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+}
+.buttonDash:hover {
+  background: #0D5B4C;
+  text-decoration: none;
+  color: #FFFFFF;
+}

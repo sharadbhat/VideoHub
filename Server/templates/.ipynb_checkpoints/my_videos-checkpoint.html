@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>{{ username }}</title>
+    <link rel="stylesheet" href="http://127.0.0.1:8080/css/bootstrap-min-337.css">
+    <link rel="stylesheet" href="http://127.0.0.1:8080/css/home.css">
+    <link rel="icon" href="http://127.0.0.1:8080/favicon.png" type="image/png">
+  </head>
+  <body class="back">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+     <div class="container-fluid">
+       <div class="navbar-header">
+         <a style="color: #16A085;" class="navbar-brand" href="{{ url_for('start') }}">VideoHub</a>
+       </div>
+       <form class="ml navbar-form navbar-left" action="search" method="post">
+          <div class="form-group">
+            <input style="width:500px;" name="search" type="text" class="form-control" placeholder="Search">
+          </div>
+          <button type="submit" class="bt btn btn-default">Submit</button>
+       </form>
+       <ul class="nav navbar-nav navbar-right">
+         <li><a style="color: #16A085;" href="{{ url_for('random_video') }}">Random</a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('dashboard') }}">Dashboard</a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('favourites') }}">Favourites</a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('upload_form') }}">Upload</a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('watched_videos') }}">Watched</a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('logout_user') }}">Logout</a></li>
+       </ul>
+     </div>
+    </nav>
+    <br><br><br>
+    <div class="container">
+    {% if not user_videos %}
+    <br><br><br><br><br>
+    <h1 style="color:#16A085; text-align:center;">You haven't uploaded anything yet</h1>
+    {% endif %}
+    <br>
+    {% if user_videos %}
+    <h1 style="color:#16A085; text-align:center;">Your uploaded videos</h1>
+    <br><br><br>
+    {% for i in user_videos %}
+     <div class="row">
+       <div class="row">
+           <div class="col-xs-12 col-sm-3 col-md-3">
+              <a href="{{ url_for('watch_video', v = i) }}">
+                 <img height="152" width="270" src="http://127.0.0.1:8080/image/{{ i }}" class="img-responsive">
+               </a>
+           </div>
+           <h4><a style="color:#16A085;text-decoration:none;" href="{{ url_for('watch_video', v = i) }}">{{ user_videos[i][0] }}</a></h4>
+           <div class="col-xs-12 col-sm-9 col-md-9">
+               <div class="list-group">
+                   <div class="list-group-item">
+                       <div class="row-content">
+                           <div class="list-group-item-heading">
+                               <p style="color:#FFFFFF;">
+                                 {% if user_videos[i][1] == "1" %}
+                                 <small>{{ user_videos[i][1] }} view</small>
+                                 {% endif %}
+                                 {% if user_videos[i][1] != "1" %}
+                                 <small>{{ user_videos[i][1] }} views</small>
+                                 {% endif %}
+                               </p>
+                           </div>
+                       </div>
+                       <a style="color:#16A085;text-decoration:none;" href="{{ url_for('delete_own_video', video_ID = i) }}">Delete video</a>
+                   </div>
+               </div>
+           </div>
+        </div>
+      <hr>
+    </div>
+    {% endfor %}
+    {% endif %}
+    </div>
+  </body>
+</html>
