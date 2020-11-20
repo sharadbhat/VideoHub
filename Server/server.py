@@ -34,7 +34,7 @@ def create_youtube_db():
         new_data=data.merge(video_detail,on='video_id')
 
         # create youtube_video data
-        engine = create_engine('mysql+pymysql://root:sdhc3189@127.0.0.1:8080/video?charset=utf8mb4') #change '//username:password@host:port/database' to connect your mysql
+        engine = create_engine('mysql+pymysql://root:sapassword@127.0.0.1:8080/video?charset=utf8mb4') #change '//username:password@host:port/database' to connect your mysql
     
         #if you want to replace the data to an existing table
         new_data.to_sql(name='youtube_video',con=engine,if_exists='replace',index=False) 
