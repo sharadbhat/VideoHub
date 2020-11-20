@@ -18,43 +18,42 @@ from sqlalchemy import create_engine
 import pandas as pd
 from youtube_api import YouTubeDataAPI
 
-
 app = Flask(__name__)
+
 def create_youtube_db(): 
-        api_key = 'AIzaSyAnAlOeHAlpuUR99MzmJOwCtuQpK8fjYxk'
-        yt = YouTubeDataAPI(api_key)
-        data=pd.DataFrame(yt.search('bán đất bà rịa',max_results=200,regionCode='VN'))
-        video_detail=[]
-        youtube = build('youtube','v3', developerKey=api_key)
-        for video_id in data['video_id']:
-            req2 = youtube.videos().list(part='statistics', id=video_id).execute()['items'][0]['statistics']
-            req2.update({'video_id':video_id})
-            video_detail.append(req2)
-        video_detail = pd.DataFrame(video_detail)
-        new_data=data.merge(video_detail,on='video_id')
+    api_key = 'AIzaSyAnAlOeHAlpuUR99MzmJOwCtuQpK8fjYxk'
+    yt = YouTubeDataAPI(api_key)
+    data=pd.DataFrame(yt.search('bán đất bà rịa',max_results=20,regionCode='VN'))
+    video_detail=[]
+    youtube = build('youtube','v3', developerKey=api_key,cache_discovery=False)
+    for video_id in data['video_id']:
+        req2 = youtube.videos().list(part='statistics', id=video_id).execute()['items'][0]['statistics']
+        req2.update({'video_id':video_id})
+        video_detail.append(req2)
+    video_detail = pd.DataFrame(video_detail)
+    new_data=data.merge(video_detail,on='video_id')
 
-        # create youtube_video data
-        engine = create_engine('mysql+pymysql://root:sdhc3189@127.0.0.1:8080/video?charset=utf8mb4') #change '//username:password@host:port/database' to connect your mysql
-    
-        #if you want to replace the data to an existing table
-        new_data.to_sql(name='youtube_video',con=engine,if_exists='replace',index=False) 
+    # create youtube_video data
+    engine = create_engine('mysql+pymysql://root:sdhc3189@127.0.0.1:3306/video?charset=utf8mb4') #change '//username:password@host:port/database' to connect your mysql
 
-        # create youtube_channel data
-        channel_detail=[]
-        channel_id_lst=data['channel_id'].unique()
-        for i in channel_id_lst:
-            detail=yt.get_channel_metadata(i)
-            channel_detail.append(detail)
-        channel_detail=pd.DataFrame(channel_detail)
-        channel_detail.to_sql(name='youtube_channel',con=engine,if_exists='replace',index=False) 
+    #if you want to replace the data to an existing table
+    new_data.to_sql(name='youtube_video',con=engine,if_exists='replace',index=False) 
 
+    # create youtube_channel data
+    channel_detail=[]
+    channel_id_lst=data['channel_id'].unique()
+    for i in channel_id_lst:
+        detail=yt.get_channel_metadata(i)
+        channel_detail.append(detail)
+    channel_detail=pd.DataFrame(channel_detail)
+    channel_detail.to_sql(name='youtube_channel',con=engine,if_exists='replace',index=False) 
+
+youtube_db=create_youtube_db()
 
 db = database.Database()
 
 UPLOAD_FOLDER = 'static/videos'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-
-
 
 @app.route("/html/<filename>", methods = ['GET'])
 def return_html(filename):
