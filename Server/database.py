@@ -84,33 +84,33 @@ class Database:
         except:
             self.db.rollback()
 
-#     def delete_user(self, username): #WORKS
-#         """
-#         - Deletes user credentials from the USERS table.
-#         """
-#         try:
-#             self.cur.execute("SELECT video_ID FROM videos WHERE uploader = \"{}\"".format(username))
-#             videos_to_delete = []
-#             for row in self.cur.fetchall():
-#                 videos_to_delete.append(row[0]) # Get video IDs of all videos uploaded by the user.
-#             for ID in videos_to_delete:
-#                 os.remove('static/videos/' + str(ID) + '.mp4') # Deletes the video from the static/videos directory.
-#                 os.remove('static/images/' + str(ID) + '.jpg') # Deletes the image from the static/images directory.
-#             self.cur.execute("DELETE FROM users WHERE username = \"{}\"".format(username))
-#             self.db.commit()
-#         except:
-#             self.db.rollback()
+    def delete_user(self, username): #WORKS
+        """
+        - Deletes user credentials from the USERS table.
+        """
+        try:
+            self.cur.execute("SELECT video_ID FROM videos WHERE uploader = \"{}\"".format(username))
+            videos_to_delete = []
+            for row in self.cur.fetchall():
+                videos_to_delete.append(row[0]) # Get video IDs of all videos uploaded by the user.
+            for ID in videos_to_delete:
+                os.remove('static/videos/' + str(ID) + '.mp4') # Deletes the video from the static/videos directory.
+                os.remove('static/images/' + str(ID) + '.jpg') # Deletes the image from the static/images directory.
+            self.cur.execute("DELETE FROM users WHERE username = \"{}\"".format(username))
+            self.db.commit()
+        except:
+            self.db.rollback()
 
-#     def upload_video(self, video_ID, username, title): #WORKS
-#         """
-#         - Updates VIDEOS table with video ID, uploader username and video title in the VIDEOS table.
-#         """
-#         try:
-#             view_count = 0
-#             self.cur.execute("INSERT INTO youtube_video VALUES(\"{}\", \"{}\", \"{}\", {}, NULL)".format(video_ID, title, username, view_count))
-#             self.db.commit()
-#         except:
-#             self.db.rollback()
+    def upload_video(self, video_ID, username, title): #WORKS
+        """
+        - Updates VIDEOS table with video ID, uploader username and video title in the VIDEOS table.
+        """
+        try:
+            view_count = 0
+            self.cur.execute("INSERT INTO youtube_video VALUES(\"{}\", \"{}\", \"{}\", {}, NULL)".format(video_ID, title, username, view_count))
+            self.db.commit()
+        except:
+            self.db.rollback()
 
     def get_video_title(self, video_ID): #WORKS
         """
@@ -133,24 +133,24 @@ class Database:
         except:
             self.db.rollback()
 
-#     def update_watched(self, username, video_ID): #WORKS
-#         """
-#         - Adds the username and video ID to the WATCHED table.
-#         """
-#         try:
-#             done = self.cur.execute("SELECT * FROM watched WHERE username = \"{}\" AND video_ID = \"{}\"".format(username, video_ID))
-#             if done == 1: # If the query was successful, one row exists
-#                 self.cur.execute("UPDATE watched SET count =  count + 1 WHERE username = \"{}\" AND video_ID = \"{}\"".format(username, video_ID))
-#                 try:
-#                     self.cur.execute("CALL add_to_fav(\"{}\", \"{}\")".format(video_ID, username))
-#                 except:
-#                     pass
-#             if done == 0: # If the query was unsuccessful, row does not exist.
-#                 count = 1
-#                 self.cur.execute("INSERT INTO watched VALUES(\"{}\", \"{}\", {})".format(video_ID, username, count))
-#             self.db.commit()
-#         except:
-#             self.db.rollback()
+    def update_watched(self, username, video_ID): #WORKS
+        """
+        - Adds the username and video ID to the WATCHED table.
+        """
+        try:
+            done = self.cur.execute("SELECT * FROM watched WHERE username = \"{}\" AND video_ID = \"{}\"".format(username, video_ID))
+            if done == 1: # If the query was successful, one row exists
+                self.cur.execute("UPDATE watched SET count =  count + 1 WHERE username = \"{}\" AND video_ID = \"{}\"".format(username, video_ID))
+                try:
+                    self.cur.execute("CALL add_to_fav(\"{}\", \"{}\")".format(video_ID, username))
+                except:
+                    pass
+            if done == 0: # If the query was unsuccessful, row does not exist.
+                count = 1
+                self.cur.execute("INSERT INTO watched VALUES(\"{}\", \"{}\", {})".format(video_ID, username, count))
+            self.db.commit()
+        except:
+            self.db.rollback()
 
     def get_video_uploader(self, video_ID): #WORKS
         """
@@ -179,16 +179,16 @@ class Database:
         self.db.commit()
         return self.cur.fetchone()[0]
 
-#     def get_watched(self, username): # WORKS
-#         """
-#         - Returns a list of video IDs watched by the user from the WATCHED table.
-#         """
-#         self.cur.execute("SELECT video_ID FROM watched WHERE username = \"{}\"".format(username))
-#         watched_video_IDs = []
-#         for ID in self.cur.fetchall():
-#             watched_video_IDs.append(ID[0])
-#         self.db.commit()
-#         return watched_video_IDs
+    def get_watched(self, username): # WORKS
+        """
+        - Returns a list of video IDs watched by the user from the WATCHED table.
+        """
+        self.cur.execute("SELECT video_ID FROM watched WHERE username = \"{}\"".format(username))
+        watched_video_IDs = []
+        for ID in self.cur.fetchall():
+            watched_video_IDs.append(ID[0])
+        self.db.commit()
+        return watched_video_IDs
 
     def get_views(self, video_ID): # WORKS
         """
@@ -198,17 +198,17 @@ class Database:
         self.db.commit()
         return self.cur.fetchone()[0]
 
-#     def delete_video(self, video_ID): # WORKS
-#         """
-#         - Deletes the video from the database.
-#         """
-#         try:
-#             self.cur.execute("DELETE FROM videos WHERE video_ID = \"{}\"".format(video_ID))
-#             self.db.commit()
-#             os.remove('static/videos/' + str(video_ID) + '.mp4')
-#             os.remove('static/images/' + str(video_ID) + '.jpg')
-#         except:
-#             self.db.rollback()
+    def delete_video(self, video_ID): # WORKS
+        """
+        - Deletes the video from the database.
+        """
+        try:
+            self.cur.execute("DELETE FROM videos WHERE video_ID = \"{}\"".format(video_ID))
+            self.db.commit()
+            os.remove('static/videos/' + str(video_ID) + '.mp4')
+            os.remove('static/images/' + str(video_ID) + '.jpg')
+        except:
+            self.db.rollback()
 
     def is_available(self, video_ID): # WORKS
         """
@@ -330,22 +330,22 @@ class Database:
         self.db.commit()
         return done
 
-#     def get_video_count(self):
-#         """
-#         - Returns number of videos in the VIDEOS table.
-#         """
-#         done = self.cur.execute("SELECT video_ID FROM videos")
-#         self.db.commit()
-#         return done
+    def get_video_count(self):
+        """
+        - Returns number of videos in the VIDEOS table.
+        """
+        done = self.cur.execute("SELECT video_ID FROM videos")
+        self.db.commit()
+        return done
 
-#     def get_total_view_count(self):
-#         """
-#         - Returns number of views on all videos in the VIDEOS table.
-#         """
-#         done = self.cur.execute("SELECT CAST(SUM(view_count) AS DECIMAL(10, 0)) FROM videos")
-#         count = self.cur.fetchone()[0]
-#         self.db.commit()
-#         return count
+    def get_total_view_count(self):
+        """
+        - Returns number of views on all videos in the VIDEOS table.
+        """
+        done = self.cur.execute("SELECT CAST(SUM(view_count) AS DECIMAL(10, 0)) FROM videos")
+        count = self.cur.fetchone()[0]
+        self.db.commit()
+        return count
 
     def get_flag_count(self):
         """
@@ -355,21 +355,21 @@ class Database:
         self.db.commit()
         return done
 
-#     def get_user_video_count(self, username):
-#         """
-#         - Returns number of videos uploaded by the user from VIDEOS table.
-#         """
-#         done = self.cur.execute("SELECT video_ID FROM videos WHERE uploader = \"{}\"".format(username))
-#         self.db.commit()
-#         return done
+    def get_user_video_count(self, username):
+        """
+        - Returns number of videos uploaded by the user from VIDEOS table.
+        """
+        done = self.cur.execute("SELECT video_ID FROM videos WHERE uploader = \"{}\"".format(username))
+        self.db.commit()
+        return done
 
-#     def get_user_view_count(self, username):
-#         """
-#         - Returns number of views on all videos uploaded by the user from VIDEOS table.
-#         """
-#         self.cur.execute("SELECT CAST(SUM(view_count) AS DECIMAL(10, 0)) FROM videos WHERE uploader = \"{}\"".format(username))
-#         self.db.commit()
-#         return self.cur.fetchone()[0]
+    def get_user_view_count(self, username):
+        """
+        - Returns number of views on all videos uploaded by the user from VIDEOS table.
+        """
+        self.cur.execute("SELECT CAST(SUM(view_count) AS DECIMAL(10, 0)) FROM videos WHERE uploader = \"{}\"".format(username))
+        self.db.commit()
+        return self.cur.fetchone()[0]
 
     def get_best_video_ID(self, username):
         """
@@ -377,26 +377,34 @@ class Database:
         """
         self.cur.execute("SELECT video_id FROM youtube_video WHERE channel_title = \"{}\" ORDER BY viewCount DESC".format(username))
         self.db.commit()
-        return self.cur.fetchone()[0]
+        try:
+            result=self.cur.fetchone()[0]
+        except:
+            result=None
+        return result
 
-#     def get_fav_video_ID(self, username):
-#         """
-#         - Returns the video ID of the user's favourite video.
-#         """
-#         self.cur.execute("SELECT video_ID FROM watched WHERE username = \"{}\" ORDER BY CAST(count as decimal) DESC".format(username))
-#         self.db.commit()
-#         return self.cur.fetchone()[0]
+    def get_fav_video_ID(self, username):
+        """
+        - Returns the video ID of the user's favourite video.
+        """
+        self.cur.execute("SELECT video_ID FROM watched WHERE username = \"{}\" ORDER BY CAST(count as decimal) DESC".format(username))
+        self.db.commit()
+        try:
+            result=self.cur.fetchone()[0]
+        except:
+            result=None
+        return result
 
-#     def get_favourites(self, username):
-#         """
-#         - Returns list of videos favourited by the user from FAVOURITES table.
-#         """
-#         self.cur.execute("SELECT video_ID FROM favourites WHERE username = \"{}\"".format(username))
-#         favourites = []
-#         for ID in self.cur.fetchall():
-#             favourites.append(ID[0])
-#         self.db.commit()
-#         return favourites
+    def get_favourites(self, username):
+        """
+        - Returns list of videos favourited by the user from FAVOURITES table.
+        """
+        self.cur.execute("SELECT video_ID FROM favourites WHERE username = \"{}\"".format(username))
+        favourites = []
+        for ID in self.cur.fetchall():
+            favourites.append(ID[0])
+        self.db.commit()
+        return favourites
 
     def delete_flag(self, video_ID):
         """
