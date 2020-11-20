@@ -10,7 +10,7 @@ class Database:
     def __init__(self): # WORKS
         self.db = pymysql.connect(host="127.0.0.1", user="root", passwd="sapassword", db="video",port=3306)
         self.cur = self.db.cursor()
-
+        
     def get_most_viewed(self): # WORKS
         """
         - Returns a list of top 10 video IDs in the descending order of view count from the VIDEOS table.
