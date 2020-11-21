@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Administrator Dashboard</title>
+    <link rel="stylesheet" href="http://127.0.0.1:8080/css/bootstrap-min-337.css">
+    <link rel="stylesheet" href="http://127.0.0.1:8080/css/user_list.css">
+    <link rel="icon" href="http://127.0.0.1:8080/favicon.png" type="image/png">
+  </head>
+  <body class="back">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+     <div class="container-fluid">
+       <div class="navbar-header">
+         <a style="color: #16A085;" class="navbar-brand" href="{{ url_for('start') }}">VideoHub</a>
+       </div>
+       <ul class="nav navbar-nav navbar-right">
+         <li><a style="color: #16A085;" href="{{ url_for('add_admin') }}">Add Administrator</a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('flagged_videos') }}">View Flagged Videos</a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('admin_list_users') }}">User List</a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('logout_user') }}">Logout</a></li>
+     </ul>
+     </div>
+    </nav>
+    <br><br><br>
+    <h2 style="color:#16A085; text-align:center;">VideoHub Statistics</h2>
+    <br><br>
+    <div class="table-responsive-vertical shadow-z-1">
+    <table id="table" class="table table-hover">
+        <tbody>
+          <tr>
+            <td style="color:#FFFFFF;" data-title="view_count">Total number of users registered</td>
+            <td data-title="v_count"><a style="color:#16A085; text-decoration:none;" href="{{ url_for('admin_list_users') }}">{{ user_count }}</a></td>
+          </tr>
+          <tr>
+            <td style="color:#FFFFFF;" data-title="video_count">Total number of videos uploaded</td>
+            <td style="color:#FFFFFF;" data-title="count">{{ video_count }}</td>
+          </tr>
+          <tr>
+            <td style="color:#FFFFFF;" data-title="view_count">Total number of views</td>
+            <td style="color:#FFFFFF;" data-title="v_count">{{ view_count }}</td>
+          </tr>
+          <tr>
+            <td style="color:#FFFFFF;" data-title="view_count">Total number of flagged videos</td>
+            <td data-title="v_count"><a style="color:#16A085; text-decoration:none;" href="{{ url_for('flagged_videos') }}">{{ flag_count }}</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>

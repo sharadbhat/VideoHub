@@ -121,7 +121,7 @@ class Database:
             title = self.cur.fetchone()[0]
             return title
         except:
-            return "Error getting title"
+            return "No video"
 
     def update_view_count(self, video_ID): #WORKS
         """

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="http://127.0.0.1:8080/css/bootstrap-min-337.css">
+    <link rel="stylesheet" href="http://127.0.0.1:8080/css/user_list.css">
+    <link rel="stylesheet" href="http://127.0.0.1:8080/css/home.css">
+    <link rel="stylesheet" href="http://127.0.0.1:8080/css/dashboard.css">
+    <link rel="icon" href="http://127.0.0.1:8080/favicon.png" type="image/png">
+  </head>
+  <body class="back">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+     <div class="container-fluid">
+       <div class="navbar-header">
+         <a style="color: #16A085;" class="navbar-brand" href="{{ url_for('start') }}">VideoHub</a>
+       </div>
+       <form class="ml navbar-form navbar-left" action="search" method="post">
+          <div class="form-group">
+            <input style="width:500px" name="search" type="text" class="form-control" placeholder="Search">
+          </div>
+          <button style="background-color:#16A085" type="submit" class="bt btn btn-default">Submit</button>
+       </form>
+       <ul class="nav navbar-nav navbar-right">
+         <li><a style="color: #16A085;" href="{{ url_for('random_video') }}">Random</a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('favourites') }}">Favourites</a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('upload_form') }}">Upload</a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('my_videos') }}">My videos</a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('watched_videos') }}">Watched</a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('logout_user') }}">Logout</a></li>
+     </ul>
+     </div>
+    </nav>
+    <br><br><br><br><br>
+    <div class="wrapper">
+    <div style="text-align:center">
+      <a style="text-decoration:none;" href="{{ url_for('password_update_form') }}" class="buttonDash">Change Password</a>
+      <br><br><br><br>
+      <a style="text-decoration:none;" href="{{ url_for('delete_own_account') }}" class="buttonDash">Delete Account</a>
+    </div>
+    </div>
+    <br><br><br>
+    <h2 style="color:#16A085; text-align:center;">{{ username }}'s statistics</h2>
+    <br><br>
+    <div class="table-responsive-vertical shadow-z-1">
+    <table id="table" class="table table-hover">
+        <tbody>
+          <tr>
+            <td style="color:#FFFFFF;" data-title="video_count">Total number of videos uploaded</td>
+            <td style="color:#FFFFFF;" data-title="count">{{ video_count }}</td>
+          </tr>
+          <tr>
+            <td style="color:#FFFFFF;" data-title="view_count">Total number of views</td>
+            <td style="color:#FFFFFF;" data-title="v_count">{{ view_count }}</td>
+          </tr>
+          <tr>
+            <td style="color:#FFFFFF;" data-title="best_vid">Video with highest views</td>
+            <td style="color:#FFFFFF;" data-title="v_count"><a style="color:#16A085;text-decoration:none;" href="{{ url_for('watch_video', v = high_video_ID) }}">{{ high_title }}</a></td>
+          </tr>
+          <tr>
+            <td style="color:#FFFFFF;" data-title="best_vid">Favourite video</td>
+            <td style="color:#FFFFFF;" data-title="v_count"><a style="color:#16A085;text-decoration:none;" href="{{ url_for('watch_video', v = fav_video_ID) }}">{{ fav_title }}</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>
