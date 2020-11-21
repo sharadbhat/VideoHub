@@ -39,10 +39,12 @@
     </nav>
     <br><br><br>
     <h1 align="center" class="heading1">{{ title }}</h1>
-    <video class="center" controls autoplay style="position:center;">
+    <!--<video class="center" controls autoplay style="position:center;">
       <source src="http://127.0.0.1:8080/video/{{ video_ID }}" type="video/mp4">
       Your broswer doesn't support this format.
-    </video>
+    </video>-->
+    <iframe height="600px" class="center" controls autoplay style="position:center;" src="https://www.youtube.com/embed/{{ video_ID }}" frameborder="1"></iframe>
+
     <br>
     <p style="text-align:center; color:#FFFFFF; font-size:22px;">Uploaded by <a style="color:#16A085; font-size:22px; text-decoration:none;" href="/user/{{ uploader }}">{{ uploader }}</a></p>
     <br>
@@ -69,11 +71,9 @@
      <div class="row">
        <div class="row">
            <div class="col-xs-12 col-sm-3 col-md-3">
-              <a href="{{ url_for('watch_video', v = i) }}">
-                 <img height="152" width="270" src="http://127.0.0.1:8080/image/{{ i }}" class="img-responsive">
-               </a>
+            <iframe  src="https://www.youtube.com/embed/{{ i }}" height="152" width="270" frameborder="1"></iframe>
            </div>
-           <h4><a style="color:#16A085;text-decoration:none;" href="{{ url_for('watch_video', v = i) }}">{{ random_vids[i][0] }}</a></h4>
+           <h4><a style="color:#16A085;text-decoration:none;" href="{{ url_for('watch_video', v = i) }}">{{ random_vids[i][3] }}</a></h4>
            <div class="col-xs-12 col-sm-9 col-md-9">
                <div class="list-group">
                    <div class="list-group-item">

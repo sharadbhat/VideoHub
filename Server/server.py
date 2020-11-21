@@ -34,7 +34,7 @@ def create_youtube_db():
     new_data=data.merge(video_detail,on='video_id')
 
     # create youtube_video data
-    engine = create_engine('mysql+pymysql://root:sdhc3189@127.0.0.1:3306/video?charset=utf8mb4') #change '//username:password@host:port/database' to connect your mysql
+    engine = create_engine('mysql+pymysql://root:sapassword@127.0.0.1:3306/video?charset=utf8mb4') #change '//username:password@host:port/database' to connect your mysql
 
     #if you want to replace the data to an existing table
     new_data.to_sql(name='youtube_video',con=engine,if_exists='replace',index=False) 
@@ -94,7 +94,6 @@ def return_favicon():
         return send_file('./static/img/favicon.png', mimetype='image/png')
 
 
-
 # @app.route("/is-available/<video_ID>", methods = ['GET'])
 # def return_availability(video_ID):
 #     """
@@ -129,6 +128,7 @@ def return_video(video_ID):
     """
     HTML_TEMPLATE = Template("""
     <!DOCTYPE html>
+    <html lang="en">
     <head>
        <title>My Video App</title>
        <style>
@@ -141,7 +141,10 @@ def return_video(video_ID):
        </style>
     </head>
     <body>
-       <iframe src="https://www.youtube.com/embed/${youtube_id}?autoplay=1" width="853" height="480" frameborder="0" allowfullscreen></iframe></body>""")
+       <iframe src="https://www.youtube.com/embed/${youtube_id}?autoplay=1" width="853" height="480" frameborder="0" allowfullscreen>
+       </iframe>
+    </body>
+    </html>""")
     youtube_url='https://www.youtube.com/watch?v='+ video_ID
 #     hed = """<h2><a href="{url}">YouTube video: {id}</a></h2>""".format(url=youtube_url, id=video_ID)
 #     iframe=ytframe.video(youtube_url)
@@ -149,14 +152,13 @@ def return_video(video_ID):
     return all_html
 
 
-# @app.route("/image/<video_ID>", methods = ['GET'])
-# def return_image(video_ID):
-#     """
-#     - Returns the image file with the corresponding video ID.
-#     """
-#     if request.method == 'GET':
-#         return send_file('./static/images/{}.jpg'.format(video_ID), mimetype='image/jpg')
-
+@app.route("/image/<video_ID>", methods = ['GET'])
+def return_image(video_ID):
+    """
+    - Returns the image file with the corresponding video ID.
+    """
+    if request.method == 'GET':
+        return send_file('./static/images/{}.jpg'.format(video_ID), mimetype='image/jpg')
     
 
 @app.route("/title/<video_ID>", methods = ['GET'])
