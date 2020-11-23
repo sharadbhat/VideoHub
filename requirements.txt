@@ -5,3 +5,8 @@ numpy==1.12.1
 fuzzywuzzy==0.15.1
 PyMySQL==0.7.11
 requests==2.11.1
+youtube-data-api
+yt-iframe
+google-api-python-client
+sqlalchemy
+pandas

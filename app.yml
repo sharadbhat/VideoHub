@@ -1,0 +1,2 @@
+runtime: python37api_version: 1threadsafe: true
+handlers:- url: /static  static_dir: static- url: /.*  script: main.app  libraries:  - name: ssl    version: latest

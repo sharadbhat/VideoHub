@@ -1,4 +1,4 @@
-# Install packages:
+﻿# Install packages:
 # - youtube-data-api
 # - yt-iframe :is a python module which can convert a youtube video link into an embeddable iframe
 # - google-api-python-client
@@ -23,7 +23,7 @@ app = Flask(__name__)
 def create_youtube_db(): 
     api_key = 'AIzaSyAnAlOeHAlpuUR99MzmJOwCtuQpK8fjYxk'
     yt = YouTubeDataAPI(api_key)
-    data=pd.DataFrame(yt.search('bán đất bà rịa',max_results=20,regionCode='VN'))
+    data=pd.DataFrame(yt.search('bán đất bà rịa',max_results=30,regionCode='VN'))
     video_detail=[]
     youtube = build('youtube','v3', developerKey=api_key,cache_discovery=False)
     for video_id in data['video_id']:
@@ -34,10 +34,10 @@ def create_youtube_db():
     new_data=data.merge(video_detail,on='video_id')
 
     # create youtube_video data
-    engine = create_engine('mysql+pymysql://root:sapassword@127.0.0.1:3306/video?charset=utf8mb4') #change '//username:password@host:port/database' to connect your mysql
+    engine = create_engine('mysql+pymysql://root:sdhc3189@127.0.0.1:3306/video?charset=utf8mb4') #change '//username:password@host:port/database' to connect your mysql
 
     #if you want to replace the data to an existing table
-    new_data.to_sql(name='youtube_video',con=engine,if_exists='replace',index=False) 
+    new_data.to_sql(name='youtube_video',con=engine,if_exists='append',index=False) 
 
     # create youtube_channel data
     channel_detail=[]
@@ -46,7 +46,7 @@ def create_youtube_db():
         detail=yt.get_channel_metadata(i)
         channel_detail.append(detail)
     channel_detail=pd.DataFrame(channel_detail)
-    channel_detail.to_sql(name='youtube_channel',con=engine,if_exists='replace',index=False) 
+    channel_detail.to_sql(name='youtube_channel',con=engine,if_exists='append',index=False) 
 
 youtube_db=create_youtube_db()
 
@@ -141,7 +141,7 @@ def return_video(video_ID):
        </style>
     </head>
     <body>
-       <iframe src="https://www.youtube.com/embed/${youtube_id}?autoplay=1" width="853" height="480" frameborder="0" allowfullscreen>
+       <iframe src="https://www.youtube.com/embed/${youtube_id}?autoplay=1" width="1500" height="800" frameborder="0" allowfullscreen>
        </iframe>
     </body>
     </html>""")
@@ -640,8 +640,6 @@ def remove_flag():
         video_ID = request.form['video_ID']
         db.delete_flag(video_ID)
         return "1"
-
-
 
 
 if __name__ == '__main__':

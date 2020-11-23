@@ -25,7 +25,7 @@ HTML_TEMPLATE = Template("""
        </style>
     </head>
     <body>
-       <iframe src="https://www.youtube.com/embed/${youtube_id}?autoplay=1" width="853" height="480" frameborder="0" allowfullscreen></iframe></body>""")
+       <iframe src="https://www.youtube.com/embed/${youtube_id}?autoplay=1" width="1000" height="500" frameborder="0" allowfullscreen></iframe></body>""")
 
 @app.errorhandler(404)
 @nocache
