@@ -2,7 +2,7 @@
 <html >
 <head>
   <meta charset="UTF-8">
-  <title>Delete Video</title>
+  <title>Xóa Video</title>
   <link rel="stylesheet" href="http://127.0.0.1:8080/css/reset-min.css">
   <link rel='stylesheet prefetch' href='http://127.0.0.1:8080/css/roboto.css'>
   <link rel='stylesheet prefetch' href='http://127.0.0.1:8080/css/monsterrat.css'>
@@ -15,7 +15,7 @@
 <body>
     <div class="container">
       <div class="info">
-        <h1 style="color:#16A085;">Re-enter password to confirm account deletion</h1>
+        <h1 style="color:#16A085;">Nhập lại mật khẩu để xác nhận xóa tài khoản</h1>
       </div>
     </div>
     <div class="form">
@@ -23,15 +23,15 @@
         {% if c_error %}
           <div class="alert">
             <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-            Invalid password
+              Mật khẩu không hợp lệ
           </div>
         {% endif %}
         <input type="text" name="title" value="{{ title }}" readonly>
         <input type="text" name="video_ID" value="{{ video_ID }}" readonly/>
-        <input id="password" type="password" name="password" placeholder="re-enter password" required autofocus/>
-        <button>confirm</button>
+        <input id="password" type="password" name="password" placeholder="Nhập lại mật khẩu" required autofocus/>
+        <button>Xác nhận</button>
         <a href="{{ url_for('my_videos') }}">
-          <button onclick="cancel()">cancel</button>
+          <button onclick="cancel()">Quay lại</button>
         </a>
       </form>
     </div>

@@ -2,7 +2,7 @@
 <html >
 <head>
   <meta charset="UTF-8">
-  <title>VideoHub</title>
+  <title>An Lạc</title>
   <link rel="stylesheet" href="http://127.0.0.1:8080/css/reset-min.css">
   <link rel='stylesheet prefetch' href='http://127.0.0.1:8080/css/roboto.css'>
   <link rel='stylesheet prefetch' href='http://127.0.0.1:8080/css/monsterrat.css'>
@@ -15,7 +15,7 @@
 <body>
     <div class="container">
       <div class="info">
-        <h1 style="color:#16A085;">VideoHub</h1>
+        <h1 style="color:#16A085;">An Lạc</h1>
       </div>
     </div>
     <div class="form">
@@ -23,13 +23,13 @@
         {% if signupError %}
           <div class="alert">
             <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-            Username already present
+            Tên người dùng đã có
           </div>
         {% endif %}
-        <input type="text" name="username" placeholder="username" required autofocus/>
-        <input type="password" name="password" placeholder="password" required/>
-        <button>create</button>
-        <p class="message">Already registered? <a href="{{ url_for('login_form') }}">Login to account</a></p>
+        <input type="text" name="username" placeholder="Tài khoản" required autofocus/>
+        <input type="password" name="password" placeholder="Mật khẩu" required/>
+        <button>Đăng ký tài khoản</button>
+        <p class="message">Bạn đã có tài khoản? <a href="{{ url_for('login_form') }}">Đăng nhập</a></p>
       </form>
     </div>
 </body>

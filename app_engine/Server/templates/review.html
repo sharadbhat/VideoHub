@@ -12,13 +12,13 @@
     <nav class="navbar navbar-inverse navbar-fixed-top">
      <div class="container-fluid">
        <div class="navbar-header">
-         <a style="color: #16A085;" class="navbar-brand" href="{{ url_for('start') }}">VideoHub</a>
+         <a style="color: #16A085;" class="navbar-brand" href="{{ url_for('start') }}">An Lạc</a>
        </div>
        <ul class="nav navbar-nav navbar-right">
-         <li><a style="color: #16A085;" href="{{ url_for('dashboard') }}">Dashboard</a></li>
-         <li><a style="color: #16A085;" href="{{ url_for('add_admin') }}">Add Administrator</a></li>
-         <li><a style="color: #16A085;" href="{{ url_for('admin_list_users') }}">User List</a></li>
-         <li><a style="color: #16A085;" href="{{ url_for('logout_user') }}">Logout</a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('dashboard') }}">Thống kê</a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('add_admin') }}">Thêm quản trị viên</a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('admin_list_users') }}">Danh sách người dùng</a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('logout_user') }}">Đăng xuất</a></li>
      </ul>
      </div>
     </nav>
@@ -26,21 +26,21 @@
     <h1 align="center" class="heading1">{{ title }}</h1>
     <video class="center" controls autoplay style="position:center;">
       <source src="http://127.0.0.1:8080/video/{{ video_ID }}" type="video/mp4">
-      Your broswer doesn't support this format.
+        Nhà quảng cáo của bạn không hỗ trợ định dạng này.
     </video>
     <br>
-    <p style="text-align:center; color:#FFFFFF; font-size:22px;">Uploaded by <a style="color:#16A085; font-size:22px; text-decoration:none;" href="/user/{{ uploader }}">{{ uploader }}</a></p>
+    <p style="text-align:center; color:#FFFFFF; font-size:22px;">Đăng bởi <a style="color:#16A085; font-size:22px; text-decoration:none;" href="/user/{{ uploader }}">{{ uploader }}</a></p>
     <br>
     {% if views == "1" %}
-    <p style="text-align:center; color:#FFFFFF; font-size:22px;">{{ views }} view</p>
+    <p style="text-align:center; color:#FFFFFF; font-size:22px;">{{ views }} lượt xem</p>
     {% endif %}
     {% if views != "1" %}
-    <p style="text-align:center; color:#FFFFFF; font-size:22px;">{{ views }} views</p>
+    <p style="text-align:center; color:#FFFFFF; font-size:22px;">{{ views }} lượt xem</p>
     {% endif %}
     <br>
     <div style="text-align: center;">
-      <a style="font-size: 18px; color:#16A085; text-decoration: none;" href="{{ url_for('admin_delete_video', video_ID = video_ID) }}">Delete video</a><br><br>
-      <a style="font-size: 18px; color:#16A085; text-decoration: none;" href="{{ url_for('admin_remove_flag', v = video_ID) }}">Remove flag</a><br><br><br>
+      <a style="font-size: 18px; color:#16A085; text-decoration: none;" href="{{ url_for('admin_delete_video', video_ID = video_ID) }}">Xóa Video</a><br><br>
+      <a style="font-size: 18px; color:#16A085; text-decoration: none;" href="{{ url_for('admin_remove_flag', v = video_ID) }}">Xóa thẻ</a><br><br><br>
     </div>
   </body>
 </html>

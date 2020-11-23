@@ -2,7 +2,7 @@
 <html >
 <head>
   <meta charset="UTF-8">
-  <title>Delete Account</title>
+  <title>Xóa tài khoản</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
   <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900'>
   <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Montserrat:400,700'>
@@ -15,7 +15,7 @@
 <body>
     <div class="container">
       <div class="info">
-        <h1 style="color:#16A085;">Re-enter password to confirm account deletion</h1>
+        <h1 style="color:#16A085;">Nhập lại mật khẩu để xác nhận xóa tài khoản</h1>
       </div>
     </div>
     <div class="form">
@@ -23,13 +23,13 @@
         {% if c_error %}
           <div class="alert">
             <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-            Invalid password
+            Mật khẩu không hợp lệ
           </div>
         {% endif %}
-        <input id="password" type="password" name="password" placeholder="re-enter password" required autofocus/>
-        <button>confirm</button>
+        <input id="password" type="password" name="password" placeholder="Nhập lại mật khẩu" required autofocus/>
+        <button>Xác nhận</button>
         <a href="{{ url_for('dashboard') }}">
-          <button onclick="cancel()">cancel</button>
+          <button onclick="cancel()">Quay lại</button>
         </a>
       </form>
     </div>

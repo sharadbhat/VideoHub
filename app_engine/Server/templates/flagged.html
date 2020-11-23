@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Flagged Videos</title>
+    <title>Video được gắn thẻ</title>
     <link rel="stylesheet" href="http://127.0.0.1:8080/css/bootstrap-min-337.css">
     <link rel="stylesheet" href="http://127.0.0.1:8080/css/home.css">
     <link rel="icon" href="http://127.0.0.1:8080/favicon.png" type="image/png">
@@ -11,23 +11,23 @@
     <nav class="navbar navbar-inverse navbar-fixed-top">
      <div class="container-fluid">
        <div class="navbar-header">
-         <a style="color: #16A085;" class="navbar-brand" href="{{ url_for('start') }}">VideoHub</a>
+         <a style="color: #16A085;" class="navbar-brand" href="{{ url_for('start') }}">An Lạc</a>
        </div>
        <ul class="nav navbar-nav navbar-right">
-         <li><a style="color: #16A085;" href="{{ url_for('dashboard') }}">Dashboard</a></li>
-         <li><a style="color: #16A085;" href="{{ url_for('add_admin') }}">Add Administrator</a></li>
-         <li><a style="color: #16A085;" href="{{ url_for('admin_list_users') }}">User List</a></li>
-         <li><a style="color: #16A085;" href="{{ url_for('logout_user') }}">Logout</a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('dashboard') }}">Thống kê</a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('add_admin') }}">Thêm quản trị viên</a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('admin_list_users') }}">Danh sách người dùng</a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('logout_user') }}">Đăng xuất</a></li>
      </ul>
      </div>
     </nav>
     <br><br><br>
     {% if not flagged_videos %}
     <br><br><br><br><br>
-    <h1 style="color:#16A085; text-align:center;">There are no flagged videos</h1>
+    <h1 style="color:#16A085; text-align:center;">Không có video bị gắn cờ</h1>
     {% endif %}
     {% if flagged_videos %}
-    <h2 style="color:#16A085; text-align:center;">List of flagged videos</h2>
+    <h2 style="color:#16A085; text-align:center;">Danh sách video được gắn cờ</h2>
     <br><br>
     <div class="container">
     {% for i in flagged_videos %}
@@ -62,7 +62,7 @@
                              </p>
                          </div>
                        </div>
-                       <a style="color:#16A085;text-decoration:none;" href="{{ url_for('admin_delete_video', video_ID = i) }}">Delete video</a>
+                       <a style="color:#16A085;text-decoration:none;" href="{{ url_for('admin_delete_video', video_ID = i) }}">Xóa video</a>
                    </div>
                </div>
            </div>

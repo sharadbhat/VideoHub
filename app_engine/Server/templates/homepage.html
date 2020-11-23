@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Lala</title>
+    <title>An Lạc</title>
     <link rel="stylesheet" href="http://127.0.0.1:8080/css/bootstrap-min-337.css">
     <link rel="stylesheet" href="http://127.0.0.1:8080/css/home.css">
     <link rel="icon" href="http://127.0.0.1:8080/favicon.png" type="image/png">
@@ -11,27 +11,27 @@
     <nav class="navbar navbar-inverse navbar-fixed-top">
      <div class="container-fluid">
        <div class="navbar-header">
-         <a style="color: #16A085;" class="navbar-brand" href="{{ url_for('start') }}">Lala</a>
+         <a style="color: #16A085;" class="navbar-brand" href="{{ url_for('start') }}">An Lạc</a>
        </div>
        <form class="ml navbar-form navbar-left" action="search" method="post">
           <div class="form-group">
-            <input style="width:500px;" name="search" type="text" class="form-control" placeholder="Search">
+            <input style="width:500px;" name="search" type="text" class="form-control" placeholder="Tìm kiếm">
           </div>
-          <button type="submit" class="bt btn btn-default">Submit</button>
+          <button type="submit" class="bt btn btn-default">Tìm kiếm</button>
        </form>
        <ul class="nav navbar-nav navbar-right">
-         <li><a style="color: #16A085;" href="{{ url_for('random_video') }}">Random</a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('random_video') }}">Ngẫu nhiên</a></li>
        {% if not logged_in %}
-         <li><a style="color: #16A085;" href="{{ url_for('signup_form') }}">Sign Up</a></li>
-         <li><a style="color: #16A085;" href="{{ url_for('login_form') }}">Login</a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('signup_form') }}">Đăng ký</a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('login_form') }}">Đăng nhập</a></li>
        {% endif %}
        {% if logged_in %}
-         <li><a style="color: #16A085;" href="{{ url_for('dashboard') }}">Dashboard</a></li>
-         <li><a style="color: #16A085;" href="{{ url_for('favourites') }}">Favourites</a></li>
-         <li><a style="color: #16A085;" href="{{ url_for('upload_form') }}">Upload</a></li>
-         <li><a style="color: #16A085;" href="{{ url_for('my_videos') }}">My videos</a></li>
-         <li><a style="color: #16A085;" href="{{ url_for('watched_videos') }}">Watched</a></li>
-         <li><a style="color: #16A085;" href="{{ url_for('logout_user') }}">Logout</a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('dashboard') }}">Thống kê</a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('favourites') }}">Yêu thích</a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('upload_form') }}">Đăng tải</a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('my_videos') }}">Video của tôi</a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('watched_videos') }}">Đã xem</a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('logout_user') }}">Đăng xuất</a></li>
        {% endif %}
      </ul>
      </div>
