@@ -7,7 +7,7 @@
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES ut8mb4 */;
+/*!40101 SET NAMES utf8mb4 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -19,22 +19,23 @@
 -- Current Database: `video`
 --
 
-CREATE DATABASE /*!32312 IF NOT EXISTS*/ `video` /*!40100 DEFAULT CHARACTER SET ut8mb4 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/ `video` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
 
 USE `video`;
 
+SET GLOBAL log_bin_trust_function_creators = 1;
 --
 -- Table structure for table `admins`
 --
 
 DROP TABLE IF EXISTS `admins`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = ut8mb4 */;
+/*!40101 SET character_set_client = utf8mb4 */;
 CREATE TABLE `admins` (
   `username` varchar(20) NOT NULL,
   `password` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`username`)
-) ENGINE=InnoDB DEFAULT CHARSET=ut8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -53,7 +54,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `favourites`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = ut8mb4 */;
+/*!40101 SET character_set_client = utf8mb4 */;
 CREATE TABLE `favourites` (
   `username` varchar(20) NOT NULL,
   `video_ID` varchar(50) NOT NULL,
@@ -61,7 +62,7 @@ CREATE TABLE `favourites` (
   KEY `video_ID` (`video_ID`),
   CONSTRAINT `favourites_ibfk_1` FOREIGN KEY (`username`) REFERENCES `users` (`username`) ON DELETE CASCADE,
   CONSTRAINT `favourites_ibfk_2` FOREIGN KEY (`video_ID`) REFERENCES `videos` (`video_ID`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=ut8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -79,7 +80,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `flags`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = ut8mb4 */;
+/*!40101 SET character_set_client = utf8mb4 */;
 CREATE TABLE `flags` (
   `video_ID` varchar(50) NOT NULL,
   `username` varchar(20) NOT NULL,
@@ -87,7 +88,7 @@ CREATE TABLE `flags` (
   KEY `username` (`username`),
   CONSTRAINT `flags_ibfk_1` FOREIGN KEY (`video_ID`) REFERENCES `videos` (`video_ID`) ON DELETE CASCADE,
   CONSTRAINT `flags_ibfk_2` FOREIGN KEY (`username`) REFERENCES `users` (`username`)
-) ENGINE=InnoDB DEFAULT CHARSET=ut8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -105,12 +106,12 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = ut8mb4 */;
+/*!40101 SET character_set_client = utf8mb4 */;
 CREATE TABLE `users` (
   `username` varchar(20) NOT NULL,
   `password` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`username`)
-) ENGINE=InnoDB DEFAULT CHARSET=ut8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -128,7 +129,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `videos`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = ut8mb4 */;
+/*!40101 SET character_set_client = utf8mb4 */;
 CREATE TABLE `videos` (
   `video_ID` varchar(50) NOT NULL,
   `video_title` varchar(200) DEFAULT NULL,
@@ -138,7 +139,7 @@ CREATE TABLE `videos` (
   PRIMARY KEY (`video_ID`),
   KEY `uploader` (`uploader`),
   CONSTRAINT `videos_ibfk_1` FOREIGN KEY (`uploader`) REFERENCES `users` (`username`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=ut8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -149,33 +150,13 @@ LOCK TABLES `videos` WRITE;
 /*!40000 ALTER TABLE `videos` DISABLE KEYS */;
 /*!40000 ALTER TABLE `videos` ENABLE KEYS */;
 UNLOCK TABLES;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = cp850 */ ;
-/*!50003 SET character_set_results = cp850 */ ;
-/*!50003 SET collation_connection  = cp850_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER add_date BEFORE INSERT ON `videos`
-FOR EACH ROW
-BEGIN
-SET NEW.upload_date = DATE(NOW());
-END */;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
--- Table structure for table `watched`
+-- Table structure for table `videos`
 --
 
 DROP TABLE IF EXISTS `watched`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = ut8mb4 */;
+
 CREATE TABLE `watched` (
   `video_ID` varchar(50) NOT NULL,
   `username` varchar(20) NOT NULL,
@@ -208,7 +189,8 @@ UNLOCK TABLES;
 /*!50003 SET collation_connection  = cp850_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
+-- DELIMITER ;;
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `add_to_fav`(IN ID VARCHAR(50), IN watcher VARCHAR(20))
 BEGIN
 DECLARE count1 VARCHAR(10);
@@ -221,6 +203,7 @@ END IF;
 CLOSE cur1;
 END ;;
 DELIMITER ;
+
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;

@@ -1,0 +1,5 @@
+runtime: python
+threadsafe: true
+entrypoint: gunicorn -b :$PORT project_name.wsgi
+handlers:- url: /static  static_dir: static- url: /.*  
+script: main.app  libraries:  - name: ssl    version: latest
