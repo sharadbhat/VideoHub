@@ -12,7 +12,7 @@
     <nav class="navbar navbar-inverse navbar-fixed-top">
      <div class="container-fluid">
        <div class="navbar-header">
-         <a style="color: #16A085;" class="navbar-brand" href="{{ url_for('start') }}">An Lạc</a>
+         <a style="color: #16A085;" class="navbar-brand" href="{{ url_for('start') }}">Lala</a>
        </div>
        <form class="ml navbar-form navbar-left" action="search" method="post">
           <div class="form-group">
@@ -27,7 +27,7 @@
          <li><a style="color: #16A085;" href="{{ url_for('login_form') }}">Đăng nhập</a></li>
        {% endif %}
        {% if logged_in %}
-         <li><a style="color: #16A085;" href="{{ url_for('dashboard') }}">Thống kê</a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('dashboard') }}">Tổng quan</a></li>
          <li><a style="color: #16A085;" href="{{ url_for('favourites') }}">Yêu thích</a></li>
          <li><a style="color: #16A085;" href="{{ url_for('upload_form') }}">Đăng tải</a></li>
          <li><a style="color: #16A085;" href="{{ url_for('my_videos') }}">Video của tôi</a></li>

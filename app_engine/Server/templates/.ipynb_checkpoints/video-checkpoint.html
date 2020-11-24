@@ -12,27 +12,27 @@
     <nav class="navbar navbar-inverse navbar-fixed-top">
      <div class="container-fluid">
        <div class="navbar-header">
-         <a style="color: #16A085;" class="navbar-brand" href="{{ url_for('start') }}">VideoHub</a>
+         <a style="color: #16A085;" class="navbar-brand" href="{{ url_for('start') }}">Lala</a>
        </div>
        <form class="ml navbar-form navbar-left" action="search" method="post">
           <div class="form-group">
-            <input style="width:500px;" name="search" type="text" class="form-control" placeholder="Search">
+            <input style="width:500px;" name="search" type="text" class="form-control" placeholder="Tìm kiếm">
           </div>
-          <button type="submit" class="bt btn btn-default">Submit</button>
+          <button type="submit" class="bt btn btn-default">Tìm kiếm</button>
        </form>
        <ul class="nav navbar-nav navbar-right">
-         <li><a style="color: #16A085;" href="{{ url_for('random_video') }}">Random</a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('random_video') }}">Ngẫu nhiên</a></li>
        {% if not logged_in %}
-         <li><a style="color: #16A085;" href="{{ url_for('signup_form') }}">Sign Up</a></li>
-         <li><a style="color: #16A085;" href="{{ url_for('login_form') }}">Login</a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('signup_form') }}">Đăng ký</a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('login_form') }}">Đăng nhập</a></li>
        {% endif %}
        {% if logged_in %}
-         <li><a style="color: #16A085;" href="{{ url_for('dashboard') }}">Dashboard</a></li>
-         <li><a style="color: #16A085;" href="{{ url_for('favourites') }}">Favourites</a></li>
-         <li><a style="color: #16A085;" href="{{ url_for('upload_form') }}">Upload</a></li>
-         <li><a style="color: #16A085;" href="{{ url_for('my_videos') }}">My videos</a></li>
-         <li><a style="color: #16A085;" href="{{ url_for('watched_videos') }}">Watched</a></li>
-         <li><a style="color: #16A085;" href="{{ url_for('logout_user') }}">Logout</a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('dashboard') }}">Tổng quan</a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('favourites') }}">Yêu thích</a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('upload_form') }}">Đăng tải</a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('my_videos') }}">Video của tôi</a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('watched_videos') }}">Video đã xem</a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('logout_user') }}">Đăng xuất</a></li>
        {% endif %}
      </ul>
      </div>
@@ -41,18 +41,18 @@
     <h1 align="center" class="heading1">{{ title }}</h1>
     <video class="center" controls autoplay style="position:center;">
       <source src="http://127.0.0.1:8080/video/{{ video_ID }}" type="video/mp4">
-      Your broswer doesn't support this format.
+      Nhà quảng cáo của bạn không hỗ trợ định dạng này.
     </video>
     <br>
-    <p style="text-align:center; color:#FFFFFF; font-size:22px;">Uploaded by <a style="color:#16A085; font-size:22px; text-decoration:none;" href="/user/{{ uploader }}">{{ uploader }}</a></p>
+    <p style="text-align:center; color:#FFFFFF; font-size:22px;">Đăng tải bởi <a style="color:#16A085; font-size:22px; text-decoration:none;" href="/user/{{ uploader }}">{{ uploader }}</a></p>
     <br>
-    <p style="text-align:center; color:#FFFFFF; font-size:19px;">Uploaded on {{ vid_upload_date }}</p>
+    <p style="text-align:center; color:#FFFFFF; font-size:19px;">Đã tải lên {{ vid_upload_date }}</p>
     <br>
     {% if views == "1" %}
-    <p style="text-align:center; color:#FFFFFF; font-size:19px;">{{ views }} view</p>
+    <p style="text-align:center; color:#FFFFFF; font-size:19px;">{{ views }} lượt xem</p>
     {% endif %}
     {% if views != "1" %}
-    <p style="text-align:center; color:#FFFFFF; font-size:19px;">{{ views }} views</p>
+    <p style="text-align:center; color:#FFFFFF; font-size:19px;">{{ views }} lượt xem</p>
     {% endif %}
     {% if logged_in %}
     {% if not username == uploader %}
@@ -63,7 +63,7 @@
     {% endif %}
     {% endif %}
     <br><br><br>
-    <p style="padding-left:175px; color:#FFFFFF; font-size:25px;">More videos to watch</p><br>
+    <p style="padding-left:175px; color:#FFFFFF; font-size:25px;">Xem nhiều hơn</p><br>
     <div class="container">
     {% for i in random_vids %}
      <div class="row">

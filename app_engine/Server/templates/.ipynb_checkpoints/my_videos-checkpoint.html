@@ -11,21 +11,21 @@
     <nav class="navbar navbar-inverse navbar-fixed-top">
      <div class="container-fluid">
        <div class="navbar-header">
-         <a style="color: #16A085;" class="navbar-brand" href="{{ url_for('start') }}">VideoHub</a>
+         <a style="color: #16A085;" class="navbar-brand" href="{{ url_for('start') }}">Lala</a>
        </div>
        <form class="ml navbar-form navbar-left" action="search" method="post">
           <div class="form-group">
-            <input style="width:500px;" name="search" type="text" class="form-control" placeholder="Search">
+            <input style="width:500px;" name="search" type="text" class="form-control" placeholder="Tìm kiếm">
           </div>
-          <button type="submit" class="bt btn btn-default">Submit</button>
+          <button type="submit" class="bt btn btn-default">Tìm kiếm</button>
        </form>
        <ul class="nav navbar-nav navbar-right">
-         <li><a style="color: #16A085;" href="{{ url_for('random_video') }}">Random</a></li>
-         <li><a style="color: #16A085;" href="{{ url_for('dashboard') }}">Dashboard</a></li>
-         <li><a style="color: #16A085;" href="{{ url_for('favourites') }}">Favourites</a></li>
-         <li><a style="color: #16A085;" href="{{ url_for('upload_form') }}">Upload</a></li>
-         <li><a style="color: #16A085;" href="{{ url_for('watched_videos') }}">Watched</a></li>
-         <li><a style="color: #16A085;" href="{{ url_for('logout_user') }}">Logout</a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('random_video') }}">Ngẫu nhiên</a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('dashboard') }}">Tổng quan </a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('favourites') }}">Yêu thích</a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('upload_form') }}">Đăng tải</a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('watched_videos') }}">Video đã xem</a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('logout_user') }}">Đăng xuất</a></li>
        </ul>
      </div>
     </nav>
@@ -33,11 +33,13 @@
     <div class="container">
     {% if not user_videos %}
     <br><br><br><br><br>
-    <h1 style="color:#16A085; text-align:center;">You haven't uploaded anything yet</h1>
+    <h1 style="color:#16A085; text-align:center;">
+      Bạn chưa tải lên bất cứ thứ gì</h1>
     {% endif %}
     <br>
     {% if user_videos %}
-    <h1 style="color:#16A085; text-align:center;">Your uploaded videos</h1>
+    <h1 style="color:#16A085; text-align:center;">
+      Video đã tải lên của bạn</h1>
     <br><br><br>
     {% for i in user_videos %}
      <div class="row">

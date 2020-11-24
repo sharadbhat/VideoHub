@@ -15,23 +15,23 @@
        </div>
        <form class="ml navbar-form navbar-left" action="search" method="post">
           <div class="form-group">
-            <input style="width:500px;" name="search" type="text" class="form-control" placeholder="Search">
+            <input style="width:500px;" name="search" type="text" class="form-control" placeholder="Tìm kiếm">
           </div>
-          <button type="submit" class="bt btn btn-default">Submit</button>
+          <button type="submit" class="bt btn btn-default">Tìm kiếm</button>
        </form>
        <ul class="nav navbar-nav navbar-right">
-         <li><a style="color: #16A085;" href="{{ url_for('random_video') }}">Random</a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('random_video') }}">Ngẫu nhiên</a></li>
        {% if not logged_in %}
-         <li><a style="color: #16A085;" href="{{ url_for('signup_form') }}">Sign Up</a></li>
-         <li><a style="color: #16A085;" href="{{ url_for('login_form') }}">Login</a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('signup_form') }}">Đăng ký</a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('login_form') }}">Đăng nhập</a></li>
        {% endif %}
        {% if logged_in %}
-         <li><a style="color: #16A085;" href="{{ url_for('dashboard') }}">Dashboard</a></li>
-         <li><a style="color: #16A085;" href="{{ url_for('favourites') }}">Favourites</a></li>
-         <li><a style="color: #16A085;" href="{{ url_for('upload_form') }}">Upload</a></li>
-         <li><a style="color: #16A085;" href="{{ url_for('my_videos') }}">My videos</a></li>
-         <li><a style="color: #16A085;" href="{{ url_for('watched_videos') }}">Watched</a></li>
-         <li><a style="color: #16A085;" href="{{ url_for('logout_user') }}">Logout</a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('dashboard') }}">Tổng quan</a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('favourites') }}">Yêu thích</a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('upload_form') }}">Đăng tải</a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('my_videos') }}">Video của tôi</a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('watched_videos') }}">Video đã xem</a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('logout_user') }}">Đăng xuất</a></li>
        {% endif %}
      </ul>
      </div>
