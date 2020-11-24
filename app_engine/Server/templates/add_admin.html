@@ -2,7 +2,7 @@
 <html >
 <head>
   <meta charset="UTF-8">
-  <title>VideoHub</title>
+  <title>An Lạc</title>
   <link rel="stylesheet" href="http://127.0.0.1:8080/css/reset-min.css">
   <link rel='stylesheet prefetch' href='http://127.0.0.1:8080/css/roboto.css'>
   <link rel='stylesheet prefetch' href='http://127.0.0.1:8080/css/monsterrat.css'>
@@ -15,7 +15,7 @@
 <body>
     <div class="container">
       <div class="info">
-        <h1 style="color:#16A085;">VideoHub</h1>
+        <h1 style="color:#16A085;">Ac Lạc</h1>
       </div>
     </div>
     <div class="form">
@@ -23,21 +23,21 @@
         {% if nameError %}
           <div class="alert">
             <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-            Username already present
+            Tên người dùng đã có
           </div>
         {% endif %}
         {% if passError %}
         <div class="alert">
           <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-          Invalid administrator credentials
+          Thông tin đăng nhập không hợp lệ
         </div>
         {% endif %}
-        <h3 style="color:#FFFFFF;">Exisiting administrator credentials</h3><br>
-        <input type="password" name="admin_password" placeholder="your password" required autofocus/>
-        <br><h3 style="color:#FFFFFF">New administrator credentials</h3><br>
-        <input type="text" name="new_username" placeholder="new username" required/>
-        <input type="password" name="new_password" placeholder="new password" required/>
-        <button>add administrator</button>
+        <h3 style="color:#FFFFFF;">Thoát thông tin đăng nhập quản trị viên</h3><br>
+        <input type="password" name="admin_password" placeholder="Mật khẩu" required autofocus/>
+        <br><h3 style="color:#FFFFFF">Thông tin đăng nhập quản trị viên mới</h3><br>
+        <input type="text" name="new_username" placeholder="Tên đăng nhập mới" required/>
+        <input type="password" name="new_password" placeholder="Mật khẩu mới" required/>
+        <button>Thêm quản trị viên</button>
       </form>
     </div>
 </body>

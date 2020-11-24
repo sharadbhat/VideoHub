@@ -11,28 +11,28 @@
     <nav class="navbar navbar-inverse navbar-fixed-top">
      <div class="container-fluid">
        <div class="navbar-header">
-         <a style="color: #16A085;" class="navbar-brand" href="{{ url_for('start') }}">VideoHub</a>
+         <a style="color: #16A085;" class="navbar-brand" href="{{ url_for('start') }}">An Lạc</a>
        </div>
        <form class="ml navbar-form navbar-left" action="search" method="post">
           <div class="form-group">
-            <input style="width:500px;" name="search" type="text" class="form-control" placeholder="Search">
+            <input style="width:500px;" name="search" type="text" class="form-control" placeholder="Tìm kiếm">
           </div>
-          <button type="submit" class="bt btn btn-default">Submit</button>
+          <button type="submit" class="bt btn btn-default">Tìm kiếm</button>
        </form>
        <ul class="nav navbar-nav navbar-right">
-         <li><a style="color: #16A085;" href="{{ url_for('random_video') }}">Random</a></li>
-         <li><a style="color: #16A085;" href="{{ url_for('dashboard') }}">Dashboard</a></li>
-         <li><a style="color: #16A085;" href="{{ url_for('favourites') }}">Favourites</a></li>
-         <li><a style="color: #16A085;" href="{{ url_for('upload_form') }}">Upload</a></li>
-         <li><a style="color: #16A085;" href="{{ url_for('my_videos') }}">My videos</a></li>
-         <li><a style="color: #16A085;" href="{{ url_for('logout_user') }}">Logout</a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('random_video') }}">Ngẫu nhiên</a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('dashboard') }}">Thống kê</a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('favourites') }}">Yêu thích</a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('upload_form') }}">Đăng tải</a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('my_videos') }}">Video của tôi</a></li>
+         <li><a style="color: #16A085;" href="{{ url_for('logout_user') }}">Đăng xuất</a></li>
        </ul>
      </div>
     </nav>
     <br><br><br>
     {% if not watched %}
     <br><br><br><br><br>
-    <h1 style="color:#16A085; text-align:center;">You haven't watched anything yet</h1>
+    <h1 style="color:#16A085; text-align:center;">Bạn chưa xem gì</h1>
     {% endif %}
     <div class="container">
     {% for i in watched %}
@@ -50,7 +50,7 @@
                        <div class="row-content">
                          <div class="list-group-item-heading">
                              <p style="color:#FFFFFF;">
-                                 <small>Uploaded by <a style="color:#16A085;text-decoration:none;" href="/user/{{ watched[i][2] }}">{{ watched[i][2] }}</a></small>
+                                 <small>Đăng tải bởi <a style="color:#16A085;text-decoration:none;" href="/user/{{ watched[i][2] }}">{{ watched[i][2] }}</a></small>
                              </p>
                          </div>
                          <div class="list-group-item-heading">
