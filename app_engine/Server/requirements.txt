@@ -10,3 +10,4 @@ yt-iframe
 google-api-python-client
 sqlalchemy
 pandas
+gunicorn==19.9.0
