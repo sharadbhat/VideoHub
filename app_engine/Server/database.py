@@ -8,7 +8,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 class Database:
     def __init__(self): # WORKS
-        self.db = pymysql.connect(host="127.0.0.1", user="root", passwd="sapassword", db="video",port=3306)
+        self.db = pymysql.connect(host="35.240.206.53", user="root", passwd="sapassword", db="video",port=8080)
         self.cur = self.db.cursor()
         
     def get_most_viewed(self): # WORKS

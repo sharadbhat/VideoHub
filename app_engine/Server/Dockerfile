@@ -17,4 +17,8 @@ RUN apt update && apt install -y libsm6 libxext6
 # webserver, with one worker process and 8 threads.
 # For environments with multiple CPU cores, increase the number of workers
 # to be equal to the cores available.
+
+ENV PORT=8080
+EXPOSE 8080
+
 CMD exec gunicorn --bind :$PORT --workers 1 --threads 8 --timeout 0 server:app
