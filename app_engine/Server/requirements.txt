@@ -1,6 +1,6 @@
 Flask==0.12.2
-opencv-python-headless
-opencv-contrib-python
+python3-opencv
+libsm6
 Werkzeug==0.12.2
 numpy==1.15.4
 fuzzywuzzy==0.15.1
