@@ -35,30 +35,30 @@ Visit http://127.0.0.1:5000
 ## Normal user
 
 #### Homepage
-![Homepage](https://github.com/sharadbhat/VideoHub/blob/master/images/homepage.png "Homepage")
+![Homepage](./images/homepage.png "Homepage")
 
 #### Login / Signup Page
-![Login Page](https://github.com/sharadbhat/VideoHub/blob/master/images/login.png "Login Page")
+![Login Page](./images/login.png "Login Page")
 
 #### Video Search Page
-![Search Page](https://github.com/sharadbhat/VideoHub/blob/master/images/search.png "Search Page")
+![Search Page](./images/search.png "Search Page")
 
 #### Upload Page
-![Upload Page](https://github.com/sharadbhat/VideoHub/blob/master/images/upload.png "Upload Page")
+![Upload Page](./images/upload.png "Upload Page")
 
 #### Video Page
-![Video Page](https://github.com/sharadbhat/VideoHub/blob/master/images/video.jpg "Video Page")
+![Video Page](./images/video.jpg "Video Page")
 
 #### Video Page Full Screen
-![Video Page Full Screen](https://github.com/sharadbhat/VideoHub/blob/master/images/video_full.jpg "Video Page Full Screen")
+![Video Page Full Screen](./images/video_full.jpg "Video Page Full Screen")
 
 #### Dashboard
-![Dashboard](https://github.com/sharadbhat/VideoHub/blob/master/images/user_dash.png "Dashboard")
+![Dashboard](./images/user_dash.png "Dashboard")
 
 ### Administrator
 
 #### Flagged Video List
-![Flagged Page](https://github.com/sharadbhat/VideoHub/blob/master/images/flagged.png "Flagged Video List")
+![Flagged Page](./images/flagged.png "Flagged Video List")
 
 #### Users List
-![Users page](https://github.com/sharadbhat/VideoHub/blob/master/images/user_list.png "Login Page")
+![Users page](./images/user_list.png "Login Page")
