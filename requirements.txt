@@ -1,6 +1,6 @@
 Flask==0.12.2
 opencv_python==3.3.0.10
-Werkzeug==0.12.2
+Werkzeug==0.15.3
 numpy==1.12.1
 fuzzywuzzy==0.15.1
 PyMySQL==0.7.11
